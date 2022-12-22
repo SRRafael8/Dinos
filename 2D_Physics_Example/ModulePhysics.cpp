@@ -20,22 +20,42 @@ bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
 
-	// Create ground
+	// Create left ground
 	ground = Ground();
 	ground.x = 0.0f; // [m]
 	ground.y = 0.0f; // [m]
-	ground.w = 30.0f; // [m]
-	ground.h = 5.0f; // [m]
+	ground.w = 7.0f; // [m]
+	ground.h = 15.0f; // [m]
+
+	ground2 = Ground();
+	ground2.x = ground.x + ground.w; // [m]
+	ground2.y = 0.0f; // [m]
+	ground2.w = 7.0f; // [m]
+	ground2.h = 10.0f; // [m]
 
 	// Create Water
 	water = Water();
-	water.x = ground.x + ground.w; // Start where ground ends [m]
+	water.x = ground2.x + ground2.w; // Start where ground ends [m]
 	water.y = 0.0f; // [m]
-	water.w = 30.0f; // [m]
+	water.w = 23.2f; // [m]
 	water.h = 5.0f; // [m]
 	water.density = 50.0f; // [kg/m^3]
 	water.vx = -1.0f; // [m/s]
 	water.vy = 0.0f; // [m/s]
+
+	//Create right ground
+
+	ground3 = Ground();
+	ground3.x = water.x + water.w; // [m]
+	ground3.y = 0.0f; // [m]
+	ground3.w = 7.0f; // [m]
+	ground3.h = 10.0f; // [m]
+
+	ground4 = Ground();
+	ground4.x = ground3.x + ground3.w; // [m]
+	ground4.y = 0.0f; // [m]
+	ground4.w = 7.0f; // [m]
+	ground4.h = 15.0f; // [m]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
@@ -59,8 +79,8 @@ bool ModulePhysics::Start()
 	// Set initial position and velocity of the ball
 	ball.x = 2.0f;
 	ball.y = (ground.y + ground.h) + 2.0f;
-	ball.vx = 5.0f;
-	ball.vy = 10.0f;
+	ball.vx = 0.0f;
+	ball.vy = 0.0f;
 
 	// Add ball to the collection
 	balls.emplace_back(ball);
@@ -148,6 +168,18 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
+		if (is_colliding_with_ground(ball, ground2))
+		{
+			// TP ball to ground surface
+			ball.y = ground2.y + ground2.h + ball.radius;
+
+			// Elastic bounce with ground
+			ball.vy = -ball.vy;
+
+			// FUYM non-elasticity
+			ball.vx *= ball.coef_friction;
+			ball.vy *= ball.coef_restitution;
+		}
 	}
 
 	// Continue game
@@ -162,6 +194,15 @@ update_status ModulePhysics::PostUpdate()
 	// Draw ground
 	color_r = 0; color_g = 255; color_b = 0;
 	App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground2.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground3.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground4.pixels(), color_r, color_g, color_b);
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
@@ -245,8 +286,8 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, c
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBall& ball, float dt)
 {
-	ball.x += ball.vx * dt + 0.5f * ball.ax * dt * dt;
-	ball.y += ball.vy * dt + 0.5f * ball.ay * dt * dt;
+	ball.x += ball.vx * dt * ball.ax * dt * dt;
+	ball.y += ball.vy * dt + 0.2f * ball.ay * dt * dt;
 	ball.vx += ball.ax * dt;
 	ball.vy += ball.ay * dt;
 }

@@ -95,7 +95,10 @@ public:
 	std::vector<PhysBall> balls{};
 	Atmosphere atmosphere{};
 	Ground ground{};
+	Ground ground2{};
 	Water water{};
+	Ground ground3{};
+	Ground ground4{};
 
 	// Misc
 	float dt = 1.0 / 60.0;
