@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePhysics.h"
+#include "ModulePlayer.h"
 #include "math.h"
 #include <cmath>
 
