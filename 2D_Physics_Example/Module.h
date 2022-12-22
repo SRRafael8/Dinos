@@ -1,6 +1,7 @@
 #pragma once
 
 class Application;
+class PhysBody;
 
 class Module
 {
@@ -69,4 +70,6 @@ public:
 		return true; 
 	}
 
+	virtual void OnCollision(PhysBody* body1, PhysBody* body2)
+	{ }
 };
