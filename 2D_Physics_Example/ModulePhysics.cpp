@@ -85,6 +85,28 @@ bool ModulePhysics::Start()
 	// Add ball to the collection
 	balls.emplace_back(ball);
 
+	// Create a ball
+	PhysRect boat = PhysRect();
+
+	// Set static properties of the ball
+	boat.mass = 10.0f; // [kg]
+	boat.surface = 1.0f; // [m^2]
+	boat.width = 3.0f; // [m]
+	boat.height = 0.5f; // [m]
+	boat.cd = 0.4f; // [-]
+	boat.cl = 1.2f; // [-]
+	boat.b = 10.0f; // [...]
+	boat.coef_friction = 0.9f; // [-]
+	boat.coef_restitution = 0.8f; // [-]
+
+	// Set initial position and velocity of the ball
+	boat.x = water.x + water.w/4;
+	boat.y = (ground.y + ground.h) + 2.0f;
+	boat.vx = 0.0f;
+	boat.vy = 0.0f;
+
+	// Add ball to the collection
+
 	return true;
 }
 
@@ -208,6 +230,10 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 0; color_g = 0; color_b = 255;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
+	// Draw Boat
+	color_r = 200; color_g = 100; color_b = 40;
+	
+
 	// Draw all balls in the scenario
 	for (auto& ball : balls)
 	{
@@ -288,7 +314,7 @@ void integrator_velocity_verlet(PhysBall& ball, float dt)
 {
 	ball.x += ball.vx * dt * ball.ax * dt * dt;
 	ball.y += ball.vy * dt + 0.2f * ball.ay * dt * dt;
-	ball.vx += ball.ax * dt;
+	ball.vx += ball.ax + 0.05f * dt;
 	ball.vy += ball.ay * dt;
 }
 
