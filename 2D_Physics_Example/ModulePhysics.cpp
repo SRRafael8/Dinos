@@ -59,7 +59,7 @@ bool ModulePhysics::Start()
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
-	atmosphere.windx = 10.0f; // [m/s]
+	atmosphere.windx = 0.0f; // [m/s]
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
 
@@ -84,6 +84,28 @@ bool ModulePhysics::Start()
 
 	// Add ball to the collection
 	balls.emplace_back(ball);
+
+	// Create a ball
+	PhysBall player = PhysBall();
+
+	// Set static properties of the ball
+	player.mass = 10.0f; // [kg]
+	player.surface = 1.0f; // [m^2]
+	player.radius = 0.5f; // [m]
+	player.cd = 0.4f; // [-]
+	player.cl = 1.2f; // [-]
+	player.b = 10.0f; // [...]
+	player.coef_friction = 0.9f; // [-]
+	player.coef_restitution = 0.8f; // [-]
+
+	// Set initial position and velocity of the ball
+	player.x = 3.0f;
+	player.y = (ground.y + ground.h);
+	player.vx = 0.0f;
+	player.vy = 0.0f;
+
+	// Add ball to the collection
+	players.emplace_back(player);
 
 	// Create a ball
 	PhysRect boat = PhysRect();
@@ -204,6 +226,97 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
+	for (auto& player : players)
+	{
+		// Skip ball if physics not enabled
+		if (!player.physics_enabled)
+		{
+			continue;
+		}
+
+		// Step #0: Clear old values
+		// ----------------------------------------------------------------------------------------
+
+		// Reset total acceleration and total accumulated force of the ball
+		player.fx = player.fy = 0.0f;
+		player.ax = player.ay = 0.0f;
+
+		// Step #1: Compute forces
+		// ----------------------------------------------------------------------------------------
+
+		// Gravity force
+		float fgx = player.mass * 0.0f;
+		float fgy = player.mass * -10.0f; // Let's assume gravity is constant and downwards
+		player.fx += fgx; player.fy += fgy; // Add this force to ball's total force
+
+		// Aerodynamic Drag force (only when not in water)
+		if (!is_colliding_with_water(player, water))
+		{
+			float fdx = 0.0f; float fdy = 0.0f;
+			compute_aerodynamic_drag(fdx, fdy, player, atmosphere);
+			player.fx += fdx; player.fy += fdy; // Add this force to ball's total force
+		}
+
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_with_water(player, water))
+		{
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag(fhdx, fhdy, player, water);
+			player.fx += fhdx; player.fy += fhdy; // Add this force to ball's total force
+
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy(fhbx, fhby, player, water);
+			player.fx += fhbx; player.fy += fhby; // Add this force to ball's total force
+		}
+
+		// Other forces
+		// ...
+
+		// Step #2: 2nd Newton's Law
+		// ----------------------------------------------------------------------------------------
+
+		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
+		player.ax = player.fx / player.mass;
+		player.ay = player.fy / player.mass;
+
+		// Step #3: Integrate --> from accel to new velocity & new position
+		// ----------------------------------------------------------------------------------------
+
+		// We will use the 2nd order "Velocity Verlet" method for integration.
+		integrator_velocity_verlet(player, dt);
+
+		// Step #4: solve collisions
+		// ----------------------------------------------------------------------------------------
+
+		// Solve collision between ball and ground
+		if (is_colliding_with_ground(player, ground))
+		{
+			// TP ball to ground surface
+			player.y = ground.y + ground.h + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = -player.vy;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
+		if (is_colliding_with_ground(player, ground2))
+		{
+			// TP ball to ground surface
+			player.y = ground2.y + ground2.h + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = -player.vy;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
+	}
+
 	// Continue game
 	return UPDATE_CONTINUE;
 }
@@ -244,6 +357,27 @@ update_status ModulePhysics::PostUpdate()
 
 		// Select color
 		if (ball.physics_enabled)
+		{
+			color_r = 255; color_g = 255; color_b = 255;
+		}
+		else
+		{
+			color_r = 255; color_g = 0; color_b = 0;
+		}
+
+		// Draw ball
+		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+	}
+
+	for (auto& player : players)
+	{
+		// Convert from physical magnitudes to geometrical pixels
+		int pos_x = METERS_TO_PIXELS(player.x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(player.y);
+		int size_r = METERS_TO_PIXELS(player.radius);
+
+		// Select color
+		if (player.physics_enabled)
 		{
 			color_r = 255; color_g = 255; color_b = 255;
 		}
@@ -312,9 +446,9 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, c
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBall& ball, float dt)
 {
-	ball.x += ball.vx * dt * ball.ax * dt * dt;
+	ball.x += ball.vx * dt + 0.05f * ball.ax * dt * dt;
 	ball.y += ball.vy * dt + 0.2f * ball.ay * dt * dt;
-	ball.vx += ball.ax + 0.05f * dt;
+	ball.vx += ball.ax * dt;
 	ball.vy += ball.ay * dt;
 }
 
