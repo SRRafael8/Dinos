@@ -3,6 +3,8 @@
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "PhysBody.h"
+#include "ModuleTextures.h"
+#include "ModuleRender.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -29,6 +31,26 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	//Move left
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		App->physics->players[0].vx = -5.0f;
+	}
+
+	//Move right
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		App->physics->players[0].vx = 5.0f;
+	}
+
+	//idle condition
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
+		App->physics->players[0].vx = 0.0f;
+	}
+
+	//Shoot
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+		
+	}
+
 	return UPDATE_CONTINUE;
 }
 

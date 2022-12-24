@@ -45,7 +45,6 @@ bool ModulePhysics::Start()
 	water.vy = 0.0f; // [m/s]
 
 	//Create right ground
-
 	ground3 = Ground();
 	ground3.x = water.x + water.w; // [m]
 	ground3.y = 0.0f; // [m]
@@ -86,7 +85,7 @@ bool ModulePhysics::Start()
 	// Add ball to the collection
 	balls.emplace_back(ball);
 
-	// Create a ball
+	// Create the player
 	PhysBall player = PhysBall();
 
 	// Set static properties of the ball

@@ -1,48 +1,57 @@
 #pragma once
-#include "p2DynArray.h"
+#include "SDL/include/SDL_rect.h"
+#define MAX_FRAMES 60
 
 class Animation
 {
 public:
-	float speed;
-	bool loop;
-	p2DynArray<SDL_Rect> frames;
+	float speed = 1.0f;
+	SDL_Rect frames[MAX_FRAMES];
+	bool loop = true; // Allows the animation to keep going back and forth
+	bool pingpong = false;
+	int totalFrames = 0;
 
 private:
-	float current_frame;
-	int loops;
+	float currentFrame = 0.0f;
+	int loopCount = 0;
+	int pingpongDirection = 1;
 
 public:
-	Animation() : frames(5), speed(1.0f), current_frame(0), loop(true), loops(0)
-	{}
 
-	Animation(const Animation& a) : frames(a.frames), speed(a.speed), current_frame(0), loop(a.loop), loops(0)
-	{}
-
-	SDL_Rect& GetCurrentFrame()
+	void PushBack(const SDL_Rect& rect)
 	{
-		current_frame += speed;
-		if(current_frame >= frames.Count())
-		{
-			current_frame = (loop) ? 0.0f : frames.Count() - 1;
-			loops++;
-		}
-
-		return frames[(int)current_frame];
-	}
-
-	const SDL_Rect& PeekCurrentFrame() const
-	{
-		return frames[(int)current_frame];
-	}
-
-	bool Finished()
-	{
-		return loops > 0;
+		frames[totalFrames++] = rect;
 	}
 
 	void Reset()
 	{
-		current_frame = 0;
+		currentFrame = 0;
+	}
+
+	bool HasFinished()
+	{
+		return !loop && !pingpong && loopCount > 0;
+	}
+
+	void Update()
+	{
+		currentFrame += speed;
+		if (currentFrame >= totalFrames)
+		{
+			currentFrame = (loop || pingpong) ? 0.0f : totalFrames - 1;
+			++loopCount;
+
+			if (pingpong)
+				pingpongDirection = -pingpongDirection;
+		}
+	}
+
+	const SDL_Rect& GetCurrentFrame() const
+	{
+		int actualFrame = currentFrame;
+		if (pingpongDirection == -1)
+			actualFrame = totalFrames - currentFrame;
+
+		return frames[actualFrame];
 	}
 };
