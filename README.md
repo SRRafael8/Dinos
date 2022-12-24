@@ -11,7 +11,11 @@ Worms logic game for the physics subject.
 
 
 ## Controls
+Player 1(Left):
+ - D: Move right
+ - A: Move left
 
+Player 2 (Right):
 
 ## Debug
 
