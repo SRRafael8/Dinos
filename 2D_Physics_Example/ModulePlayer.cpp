@@ -47,8 +47,13 @@ update_status ModulePlayer::Update()
 	}
 
 	//Shoot
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
-		
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+		int x = App->physics->players[0].x;
+		int y = App->physics->players[0].y;
+		float r = 0.5f;
+		float vx = 0;
+		float vy = 0;
+		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
 
 	return UPDATE_CONTINUE;

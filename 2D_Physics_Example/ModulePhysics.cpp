@@ -348,26 +348,26 @@ update_status ModulePhysics::PostUpdate()
 	
 
 	// Draw all balls in the scenario
-	for (auto& ball : balls)
-	{
-		// Convert from physical magnitudes to geometrical pixels
-		int pos_x = METERS_TO_PIXELS(ball.x);
-		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
-		int size_r = METERS_TO_PIXELS(ball.radius);
+	//for (auto& ball : balls)
+	//{
+	//	// Convert from physical magnitudes to geometrical pixels
+	//	int pos_x = METERS_TO_PIXELS(ball.x);
+	//	int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
+	//	int size_r = METERS_TO_PIXELS(ball.radius);
 
-		// Select color
-		if (ball.physics_enabled)
-		{
-			color_r = 255; color_g = 255; color_b = 255;
-		}
-		else
-		{
-			color_r = 255; color_g = 0; color_b = 0;
-		}
+	//	// Select color
+	//	if (ball.physics_enabled)
+	//	{
+	//		color_r = 255; color_g = 255; color_b = 255;
+	//	}
+	//	else
+	//	{
+	//		color_r = 255; color_g = 0; color_b = 0;
+	//	}
 
-		// Draw ball
-		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
-	}
+	//	// Draw ball
+	//	App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+	//}
 
 	for (auto& player : players)
 	{
@@ -404,6 +404,8 @@ float modulus(float vx, float vy)
 {
 	return std::sqrt(vx * vx + vy * vy);
 }
+
+
 
 // Compute Aerodynamic Drag force
 void compute_aerodynamic_drag(float &fx, float& fy, const PhysBall &ball, const Atmosphere &atmosphere)
@@ -502,5 +504,3 @@ SDL_Rect Ground::pixels()
 	pos_px.h = METERS_TO_PIXELS(-h); // Can I do this? LOL
 	return pos_px;
 }
-
-
