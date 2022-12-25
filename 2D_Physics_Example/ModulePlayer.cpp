@@ -33,12 +33,12 @@ update_status ModulePlayer::Update()
 {
 	//Move left
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		App->physics->players[0].vx = -5.0f;
+		App->physics->players[0].vx = -1.0f;
 	}
 
 	//Move right
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		App->physics->players[0].vx = 5.0f;
+		App->physics->players[0].vx = 1.0f;
 	}
 
 	//idle condition
