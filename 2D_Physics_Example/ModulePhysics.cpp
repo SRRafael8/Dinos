@@ -437,6 +437,21 @@ update_status ModulePhysics::PostUpdate()
 		// Draw ball
 		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
 	}
+	if (disparo == 0) {
+		int x = App->physics->players[0].x;
+		int y = App->physics->players[0].y;
+		float r = 0.5f;
+		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
+	}
+	if(disparo == 1){
+
+		float r = 0.5f;
+		float fuerza = 2;
+		float Direccion = 45;
+		shootx += fuerza * cos(Direccion);
+		shooty += fuerza * sin(Direccion);
+		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
+	}
 
 	return UPDATE_CONTINUE;
 }

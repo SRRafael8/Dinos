@@ -144,6 +144,9 @@ public:
 
 	// Misc
 	float dt = 1.0 / 60.0;
+	bool disparo = 0;
+	float shootx = 0;
+	float shooty = 0;
 
 private:
 
@@ -173,3 +176,5 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
+
+
