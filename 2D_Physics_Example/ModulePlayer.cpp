@@ -49,7 +49,7 @@ update_status ModulePlayer::Update()
 
 	//Shoot
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { App->physics->disparo = 1; }
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) { App->physics->disparo = 0; }
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->physics->disparo = 0; }
 
 	//PLAYER 2
 	//Move left
@@ -76,6 +76,8 @@ update_status ModulePlayer::Update()
 		float vy = 0;
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
