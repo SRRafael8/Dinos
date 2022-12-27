@@ -147,6 +147,7 @@ public:
 	bool disparo = 0;
 	float shootx = 0;
 	float shooty = 0;
+	float direction = 0;
 
 private:
 
