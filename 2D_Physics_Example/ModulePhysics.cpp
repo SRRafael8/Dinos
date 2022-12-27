@@ -107,6 +107,29 @@ bool ModulePhysics::Start()
 	// Add ball to the collection
 	players.emplace_back(player);
 
+
+	// Create the player2
+	PhysBall player2 = PhysBall();
+
+	// Set static properties of the ball
+	player2.mass = 10.0f; // [kg]
+	player2.surface = 1.0f; // [m^2]
+	player2.radius = 0.5f; // [m]
+	player2.cd = 0.4f; // [-]
+	player2.cl = 1.2f; // [-]
+	player2.b = 10.0f; // [...]
+	player2.coef_friction = 0.9f; // [-]
+	player2.coef_restitution = 0.8f; // [-]
+
+	// Set initial position and velocity of the ball
+	player2.x = 48.0f;
+	player2.y = (ground.y + ground.h);
+	player2.vx = 0.0f;
+	player2.vy = 0.0f;
+
+	// Add ball to the collection
+	players.emplace_back(player2);
+
 	// Create a ball
 	PhysRect boat = PhysRect();
 
@@ -437,6 +460,28 @@ update_status ModulePhysics::PostUpdate()
 		// Draw ball
 		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
 	}
+
+	for (auto& player2 : players)
+	{
+		// Convert from physical magnitudes to geometrical pixels
+		int pos_x = METERS_TO_PIXELS(player2.x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(player2.y);
+		int size_r = METERS_TO_PIXELS(player2.radius);
+
+		// Select color
+		if (player2.physics_enabled)
+		{
+			color_r = 255; color_g = 255; color_b = 255;
+		}
+		else
+		{
+			color_r = 255; color_g = 0; color_b = 0;
+		}
+
+		// Draw ball
+		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+	}
+
 	if (disparo == 0) {
 		int x = App->physics->players[0].x;
 		int y = App->physics->players[0].y;
