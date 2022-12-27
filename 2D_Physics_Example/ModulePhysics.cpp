@@ -493,8 +493,8 @@ update_status ModulePhysics::PostUpdate()
 	}
 	if(disparo == 1){
 
-		float r = METERS_TO_PIXELS(0.5f);
-		float fuerza = 0.5f;
+		float r = METERS_TO_PIXELS(0.2f);
+		float fuerza = 0.4f;
 		direction -= -0.01f;
 		shootx += METERS_TO_PIXELS(fuerza * sin(direction));
 		shooty += -METERS_TO_PIXELS(fuerza * cos(direction));
