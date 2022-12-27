@@ -224,6 +224,30 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
+		if (is_colliding_with_ground(ball, ground3))
+		{
+			// TP ball to ground surface
+			ball.y = ground3.y + ground3.h + ball.radius;
+
+			// Elastic bounce with ground
+			ball.vy = -ball.vy;
+
+			// FUYM non-elasticity
+			ball.vx *= ball.coef_friction;
+			ball.vy *= ball.coef_restitution;
+		}
+		if (is_colliding_with_ground(ball, ground4))
+		{
+			// TP ball to ground surface
+			ball.y = ground4.y + ground4.h + ball.radius;
+
+			// Elastic bounce with ground
+			ball.vy = -ball.vy;
+
+			// FUYM non-elasticity
+			ball.vx *= ball.coef_friction;
+			ball.vy *= ball.coef_restitution;
+		}
 	}
 
 	for (auto& player : players)
@@ -307,6 +331,30 @@ update_status ModulePhysics::PreUpdate()
 		{
 			// TP ball to ground surface
 			player.y = ground2.y + ground2.h + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = -player.vy;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
+		if (is_colliding_with_ground(player, ground3))
+		{
+			// TP ball to ground surface
+			player.y = ground3.y + ground3.h + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = -player.vy;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
+		if (is_colliding_with_ground(player, ground4))
+		{
+			// TP ball to ground surface
+			player.y = ground4.y + ground4.h + player.radius;
 
 			// Elastic bounce with ground
 			player.vy = -player.vy;
