@@ -441,15 +441,17 @@ update_status ModulePhysics::PostUpdate()
 		int x = App->physics->players[0].x;
 		int y = App->physics->players[0].y;
 		float r = 0.5f;
+		shootx = 0;
+		shooty = 0;
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
 	if(disparo == 1){
 
-		float r = 0.5f;
-		float fuerza = 2;
-		float Direccion = 45;
-		shootx += fuerza * cos(Direccion);
-		shooty += fuerza * sin(Direccion);
+		float r = METERS_TO_PIXELS(3.0f);
+		float fuerza = 1.0f;
+		float Direccion = 3.0f;
+		shootx += METERS_TO_PIXELS(2* fuerza * cos(Direccion));
+		shooty += METERS_TO_PIXELS(2* fuerza * sin(Direccion));
 		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
 	}
 
