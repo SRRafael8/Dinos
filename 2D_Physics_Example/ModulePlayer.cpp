@@ -67,18 +67,36 @@ update_status ModulePlayer::Update()
 		App->physics->players[1].vx = 0.0f;
 	}
 
-	//Shoot
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		int x = App->physics->players[1].x;
-		int y = App->physics->players[1].y;
-		float r = 0.5f;
-		float vx = 0;
-		float vy = 0;
-		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
+	////Shoot
+	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+	//	int x = App->physics->players[1].x;
+	//	int y = App->physics->players[1].y;
+	//	float r = 0.5f;
+	//	float vx = 0;
+	//	float vy = 0;
+	//	App->renderer->DrawCircle(x, y, r, 255, 100, 100);
+	//}
+
+	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		laequis = App->input->GetMouseX();
 	}
-
-	
-
+	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		if (App->input->GetMouseX() > laequis) { 
+			App->physics->masdirection =1;
+			App->physics->menosdirection = 0;
+		}
+		if (App->input->GetMouseX() < laequis) { 
+			App->physics->menosdirection = 1;
+			App->physics->masdirection = 0;
+		}
+	}
+	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_UP) {
+		laequis = 0;
+		App->physics->masdirection = 0;
+		App->physics->menosdirection = 0;
+	}
 	return UPDATE_CONTINUE;
 }
 

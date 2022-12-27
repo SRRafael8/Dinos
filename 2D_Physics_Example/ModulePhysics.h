@@ -148,6 +148,8 @@ public:
 	float shootx = 0;
 	float shooty = 0;
 	float direction = 0;
+	float menosdirection = 0;
+	float masdirection = 0;
 
 private:
 

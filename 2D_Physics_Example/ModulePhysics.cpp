@@ -418,7 +418,7 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 200; color_g = 100; color_b = 40;
 	
 
-	// Draw all balls in the scenario
+	 //Draw all balls in the scenario
 	//for (auto& ball : balls)
 	//{
 	//	// Convert from physical magnitudes to geometrical pixels
