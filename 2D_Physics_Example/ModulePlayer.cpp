@@ -67,6 +67,10 @@ update_status ModulePlayer::Update()
 		App->physics->players[1].vx = 0.0f;
 	}
 
+	//Shoot
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) { App->physics->disparo2 = 1; }
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->physics->disparo2 = 0; }
+
 	////Shoot
 	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 	//	int x = App->physics->players[1].x;

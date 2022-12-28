@@ -145,9 +145,13 @@ public:
 	// Misc
 	float dt = 1.0 / 60.0;
 	bool disparo = 0;
+	bool disparo2 = 0;
 	float shootx = 0;
 	float shooty = 0;
+	float shootx2 = 0;
+	float shooty2 = 0;
 	float direction = 0;
+	float direction2 = 0;
 	float menosdirection = 0;
 	float masdirection = 0;
 

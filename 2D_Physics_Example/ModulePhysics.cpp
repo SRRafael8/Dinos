@@ -503,6 +503,27 @@ update_status ModulePhysics::PostUpdate()
 		
 	}
 
+	if (disparo2 == 0) {
+		int x = App->physics->players[0].x;
+		int y = App->physics->players[0].y - 700;
+		float r = 0.5f;
+		direction2 = 45;
+		shootx2 = METERS_TO_PIXELS(App->physics->players[0].x);
+		shooty2 = METERS_TO_PIXELS(App->physics->players[0].y + 120);
+		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
+	}
+	if (disparo2 == 1) {
+
+		float r = METERS_TO_PIXELS(0.2f);
+		float fuerza = -0.4f;
+		direction2 += 0.01f;
+		shootx2 += METERS_TO_PIXELS(fuerza * sin(direction2));
+		shooty2 += METERS_TO_PIXELS(fuerza * cos(direction2));
+
+		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
+
+	}
+
 	return UPDATE_CONTINUE;
 }
 
