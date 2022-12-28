@@ -57,6 +57,12 @@ bool ModulePhysics::Start()
 	ground4.w = 7.0f; // [m]
 	ground4.h = 15.0f; // [m]
 
+	ground5 = Ground();
+	ground5.x = 20.0f; // [m]
+	ground5.y = 25.0f; // [m]
+	ground5.w = 10.0f; // [m]
+	ground5.h = 1.0f; // [m]
+
 	// Create atmosphere
 	atmosphere = Atmosphere();
 	atmosphere.windx = 0.0f; // [m/s]
@@ -271,6 +277,16 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
+		if (is_colliding_with_ground(ball, ground5))
+		{
+
+			// Elastic bounce with ground
+			ball.vy = -ball.vy;
+
+			// FUYM non-elasticity
+			ball.vx *= ball.coef_friction;
+			ball.vy *= ball.coef_restitution;
+		}
 	}
 
 	for (auto& player : players)
@@ -386,6 +402,15 @@ update_status ModulePhysics::PreUpdate()
 			player.vx *= player.coef_friction;
 			player.vy *= player.coef_restitution;
 		}
+		if (is_colliding_with_ground(player, ground5))
+		{
+			// Elastic bounce with ground
+			player.vy = -player.vy;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
 	}
 
 	// Continue game
@@ -409,6 +434,9 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 0; color_g = 255; color_b = 0;
 	App->renderer->DrawQuad(ground4.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground5.pixels(), color_r, color_g, color_b);
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
