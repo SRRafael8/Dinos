@@ -156,6 +156,13 @@ public:
 	float menosdirection = 0;
 	float masdirection = 0;
 
+	// Bool GUI
+	bool gravitybool;
+	bool aerodragbool;
+	bool hydrodragbool;
+	bool buoyancybool;
+
+
 private:
 
 	bool debug;
