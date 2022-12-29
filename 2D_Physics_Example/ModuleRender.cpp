@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 
+#pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
+
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	renderer = NULL;
@@ -33,6 +35,12 @@ bool ModuleRender::Init()
 		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+
+	//initialise the SDL_ttf library
+	TTF_Init();
+
+	//load a font into memory
+	font = TTF_OpenFont("Assets/Fonts/arial/arial.ttf", 25);
 
 	return ret;
 }
@@ -76,6 +84,12 @@ update_status ModuleRender::PostUpdate()
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
+	// Free the font
+	TTF_CloseFont(font);
+
+	//we clean up TTF library
+	TTF_Quit();
+
 	LOG("Destroying renderer");
 
 	//Destroy window
@@ -204,4 +218,22 @@ bool ModuleRender::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 
 	}
 
 	return ret;
+}
+
+bool ModuleRender::BlitText(const char* text, int posx, int posy, int w, int h, SDL_Color color) {
+
+	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	int texW = 0;
+	int texH = 0;
+	SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+	SDL_Rect dstrect = { posx, posy, w, h };
+
+	SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
+
+	return true;
 }

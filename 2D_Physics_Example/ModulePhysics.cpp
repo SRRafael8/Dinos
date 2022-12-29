@@ -419,6 +419,10 @@ update_status ModulePhysics::PreUpdate()
 
 update_status ModulePhysics::PostUpdate()
 {
+	// Draw Text
+	App->renderer->BlitText("Prueba GUI", 50, 50, 150, 30, { 255,255,0 });
+	App->renderer->BlitText("Prueba GUI 2", 50, 80, 150, 30, { 255,255,0 });
+	 
 	// Colors
 	int color_r, color_g, color_b;
 

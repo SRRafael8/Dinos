@@ -1,6 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "SDL/include/SDL.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 
 class ModuleRender : public Module
 {
@@ -18,8 +20,10 @@ public:
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true);
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true);
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true);
+	bool BlitText(const char* text, int posX, int posY, int w, int h, SDL_Color color);
 
 public:
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
+	TTF_Font* font;
 };
