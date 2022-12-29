@@ -161,6 +161,7 @@ public:
 	bool aerodragbool;
 	bool hydrodragbool;
 	bool buoyancybool;
+	bool aux;
 
 
 private:
