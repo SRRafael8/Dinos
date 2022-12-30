@@ -473,26 +473,28 @@ update_status ModulePhysics::PostUpdate()
 	
 
 	 //Draw all balls in the scenario
-	//for (auto& ball : balls)
-	//{
-	//	// Convert from physical magnitudes to geometrical pixels
-	//	int pos_x = METERS_TO_PIXELS(ball.x);
-	//	int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
-	//	int size_r = METERS_TO_PIXELS(ball.radius);
+	for (auto& ball : balls)
+	{
+		// Convert from physical magnitudes to geometrical pixels
+		int pos_x = METERS_TO_PIXELS(ball.x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
+		int size_r = METERS_TO_PIXELS(ball.radius);
 
-	//	// Select color
-	//	if (ball.physics_enabled)
-	//	{
-	//		color_r = 255; color_g = 255; color_b = 255;
-	//	}
-	//	else
-	//	{
-	//		color_r = 255; color_g = 0; color_b = 0;
-	//	}
+		// Select color
+		if (ball.physics_enabled)
+		{
+			color_r = 255; color_g = 255; color_b = 255;
+		}
+		else
+		{
+			color_r = 255; color_g = 0; color_b = 0;
+		}
 
-	//	// Draw ball
-	//	App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
-	//}
+		// Draw ball
+		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+
+		
+	}
 
 	for (auto& player : players)
 	{
@@ -512,6 +514,7 @@ update_status ModulePhysics::PostUpdate()
 		}
 
 		// Draw ball
+
 		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
 	}
 
@@ -544,6 +547,8 @@ update_status ModulePhysics::PostUpdate()
 		shootx = METERS_TO_PIXELS(players[0].x);
 		shooty = -METERS_TO_PIXELS(players[0].y - 730);
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
+
+
 	}
 	if(disparo == 1){
 
@@ -554,7 +559,21 @@ update_status ModulePhysics::PostUpdate()
 		shooty += -METERS_TO_PIXELS(fuerza * cos(direction));
 
 		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
-		
+
+		//PhysBall* ball = new PhysBall;
+		//ball->x = METERS_TO_PIXELS(App->physics->players[0].x);
+		//ball->y = METERS_TO_PIXELS(App->physics->players[0].y);;
+		//ball->vx = 3;
+		//ball->vy = 3;
+		//ball->mass = 10.0f; // [kg]
+		//ball->surface = 1.0f; // [m^2]
+		//ball->radius = 0.5f; // [m]
+		//ball->cd = 0.4f; // [-]
+		//ball->cl = 1.2f; // [-]
+		//ball->b = 10.0f; // [...]
+		//ball->coef_friction = 0.9f; // [-]
+		//ball->coef_restitution = 0.8f; // [-]
+		//balls.emplace_back(ball);
 	}
 
 	if (disparo2 == 0) {
