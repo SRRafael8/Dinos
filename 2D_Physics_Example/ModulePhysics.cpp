@@ -542,7 +542,7 @@ update_status ModulePhysics::PostUpdate()
 		float r = 0.5f;
 		direction = 45;
 		shootx = METERS_TO_PIXELS(players[0].x);
-		shooty = -METERS_TO_PIXELS(players[0].y - 730);
+		shooty = -METERS_TO_PIXELS(players[0].y - 740);
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
 	if(disparo == 1){
@@ -562,8 +562,8 @@ update_status ModulePhysics::PostUpdate()
 		int y = App->physics->players[0].y - 700;
 		float r = 0.5f;
 		direction2 = 45;
-		shootx2 = METERS_TO_PIXELS(App->physics->players[0].x);
-		shooty2 = -METERS_TO_PIXELS(App->physics->players[0].y - 730);
+		shootx2 = METERS_TO_PIXELS(App->physics->players[1].x);
+		shooty2 = -METERS_TO_PIXELS(App->physics->players[1].y - 740);
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
 	if (disparo2 == 1) {
