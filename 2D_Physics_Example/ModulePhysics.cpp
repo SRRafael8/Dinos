@@ -159,10 +159,6 @@ bool ModulePhysics::Start()
 	// Add ball to the collection
 
 	// Bool for GUI forces
-	bool gravitybool = true;
-	bool aerodragbool = true;
-	bool hydrodragbool = true;
-	bool buoyancybool = true;
 
 	return true;
 }

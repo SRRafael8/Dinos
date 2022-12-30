@@ -157,10 +157,10 @@ public:
 	float masdirection = 0;
 
 	// Bool GUI
-	bool gravitybool;
-	bool aerodragbool;
-	bool hydrodragbool;
-	bool buoyancybool;
+	bool gravitybool = true;
+	bool aerodragbool = true;
+	bool hydrodragbool = true;
+	bool buoyancybool = true;
 	bool aux;
 
 
