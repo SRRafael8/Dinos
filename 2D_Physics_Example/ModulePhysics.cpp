@@ -34,6 +34,18 @@ bool ModulePhysics::Start()
 	lifep2.w = 5.0f; // [m]
 	lifep2.h = 1.0f; // [m]
 
+	lifep1g = Ground();
+	lifep1g.x = 1.0f; // [m]
+	lifep1g.y = 1.0f; // [m]
+	lifep1g.w = 5.0f; // [m]
+	lifep1g.h = 1.0f; // [m]
+
+	lifep2g = Ground();
+	lifep2g.x = 45.1f; // [m]
+	lifep2g.y = 1.0f; // [m]
+	lifep2g.w = 5.0f; // [m]
+	lifep2g.h = 1.0f; // [m]
+
 	borde = Ground();
 	borde.x = 0.7f; // [m]
 	borde.y = 0.75f; // [m]
@@ -68,6 +80,16 @@ bool ModulePhysics::Start()
 	water.density = 50.0f; // [kg/m^3]
 	water.vx = -1.0f; // [m/s]
 	water.vy = 0.0f; // [m/s]
+
+	//Colision water death
+	waterdeath = Water();
+	waterdeath.x = ground2.x + ground2.w; // Start where ground ends [m]
+	waterdeath.y = 0.0f; // [m]
+	waterdeath.w = 23.2f; // [m]
+	waterdeath.h = 3.0f; // [m]
+	waterdeath.density = 50.0f; // [kg/m^3]
+	waterdeath.vx = -1.0f; // [m/s]
+	waterdeath.vy = 0.0f; // [m/s]
 
 	//Create right ground
 	ground3 = Ground();
@@ -490,6 +512,17 @@ update_status ModulePhysics::PreUpdate()
 			player.vx *= player.coef_friction;
 			player.vy *= player.coef_restitution;
 		}
+
+		// FALL INTO WATER
+		if (is_colliding_with_water(players[0], waterdeath))
+		{
+			lifep1.w = 0.0f;
+		}
+		if (is_colliding_with_water(players[1], waterdeath))
+		{
+			lifep2.w = 0.0f;
+		}
+		
 	}
 
 	// Continue game
@@ -535,6 +568,9 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 0; color_g = 0; color_b = 255;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
+	color_r = 0; color_g = 0; color_b = 184;
+	App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
+
 	//Draw life
 
 	App->renderer->BlitText("Player 1", 16, 693, 70, 20, { 0,0,0 });
@@ -545,6 +581,12 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 0; color_g = 0; color_b = 0;
 	App->renderer->DrawQuad(borde2.pixels(), color_r, color_g, color_b);
+
+	color_r = 55; color_g = 55; color_b = 55;
+	App->renderer->DrawQuad(lifep1g.pixels(), color_r, color_g, color_b);
+
+	color_r = 55; color_g = 55; color_b = 55;
+	App->renderer->DrawQuad(lifep2g.pixels(), color_r, color_g, color_b);
 
 	color_r = 255; color_g = 0; color_b = 0;
 	App->renderer->DrawQuad(lifep1.pixels(), color_r, color_g, color_b);

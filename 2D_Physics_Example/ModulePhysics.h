@@ -139,6 +139,7 @@ public:
 	Ground ground{};
 	Ground ground2{};
 	Water water{};
+	Water waterdeath{};
 	Ground ground3{};
 	Ground ground4{};
 	Ground ground5{};
@@ -148,6 +149,8 @@ public:
 	//Life
 	Ground lifep1{};
 	Ground lifep2{};
+	Ground lifep1g{};
+	Ground lifep2g{};
 	Ground borde{};
 	Ground borde2{};
 
