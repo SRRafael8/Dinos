@@ -142,6 +142,14 @@ public:
 	Ground ground3{};
 	Ground ground4{};
 	Ground ground5{};
+	Ground ground6{};
+	Ground ground7{};
+
+	//Life
+	Ground lifep1{};
+	Ground lifep2{};
+	Ground borde{};
+	Ground borde2{};
 
 	// Misc
 	float dt = 1.0 / 60.0;

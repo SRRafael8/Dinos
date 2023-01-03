@@ -21,6 +21,31 @@ bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
 
+	//Create life
+	lifep1 = Ground();
+	lifep1.x = 1.0f; // [m]
+	lifep1.y = 1.0f; // [m]
+	lifep1.w = 5.0f; // [m]
+	lifep1.h = 1.0f; // [m]
+
+	lifep2 = Ground();
+	lifep2.x = 45.1f; // [m]
+	lifep2.y = 1.0f; // [m]
+	lifep2.w = 5.0f; // [m]
+	lifep2.h = 1.0f; // [m]
+
+	borde = Ground();
+	borde.x = 0.7f; // [m]
+	borde.y = 0.75f; // [m]
+	borde.w = 5.5f; // [m]
+	borde.h = 1.5f; // [m]
+
+	borde2 = Ground();
+	borde2.x = 44.8f; // [m]
+	borde2.y = 0.75f; // [m]
+	borde2.w = 5.5f; // [m]
+	borde2.h = 1.5f; // [m]
+
 	// Create left ground
 	ground = Ground();
 	ground.x = 0.0f; // [m]
@@ -62,6 +87,18 @@ bool ModulePhysics::Start()
 	ground5.y = 25.0f; // [m]
 	ground5.w = 10.0f; // [m]
 	ground5.h = 1.0f; // [m]
+
+	ground6 = Ground();
+	ground6.x = -1.0f; // [m]
+	ground6.y = 15.3f; // [m]
+	ground6.w = 1.0f; // [m]
+	ground6.h = 6.0f; // [m]
+
+	ground7 = Ground();
+	ground7.x = 51.2f; // [m]
+	ground7.y = 15.3f; // [m]
+	ground7.w = 1.0f; // [m]
+	ground7.h = 6.0f; // [m]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
@@ -429,6 +466,30 @@ update_status ModulePhysics::PreUpdate()
 			player.vx *= player.coef_friction;
 			player.vy *= player.coef_restitution;
 		}
+		if (is_colliding_with_ground(player, ground6))
+		{
+			// TP ball to ground surface
+			player.x = ground6.x + ground6.w + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = 0;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
+		if (is_colliding_with_ground(player, ground7))
+		{
+			// TP ball to ground surface
+			player.x = ground7.x - ground7.w + player.radius;
+
+			// Elastic bounce with ground
+			player.vy = 0;
+
+			// FUYM non-elasticity
+			player.vx *= player.coef_friction;
+			player.vy *= player.coef_restitution;
+		}
 	}
 
 	// Continue game
@@ -464,9 +525,32 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 128; color_g = 64; color_b = 0;
 	App->renderer->DrawQuad(ground5.pixels(), color_r, color_g, color_b);
 
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground6.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
+
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+
+	//Draw life
+
+	App->renderer->BlitText("Player 1", 16, 693, 70, 20, { 0,0,0 });
+	App->renderer->BlitText("Player 2", 934, 693, 70, 20, { 0,0,0 });
+
+	color_r = 0; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(borde.pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(borde2.pixels(), color_r, color_g, color_b);
+
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(lifep1.pixels(), color_r, color_g, color_b);
+
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(lifep2.pixels(), color_r, color_g, color_b);
 
 	// Draw Boat
 	color_r = 200; color_g = 100; color_b = 40;
