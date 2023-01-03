@@ -49,7 +49,10 @@ update_status ModulePlayer::Update()
 
 	//Shoot
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { App->physics->disparo = 1; }
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->physics->disparo = 0; }
+	if (timer==0) { 
+		App->physics->disparo = 0; 
+		timer = 200;
+	}
 
 	//PLAYER 2
 	//Move left
@@ -68,8 +71,13 @@ update_status ModulePlayer::Update()
 	}
 
 	//Shoot
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) { App->physics->disparo2 = 1; }
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->physics->disparo2 = 0; }
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) { 
+		App->physics->disparo2 = 1;
+	}
+	if (timer2 == 0) { 
+		App->physics->disparo2 = 0;
+		timer2 = 200;
+	}
 
 	////Shoot
 	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {

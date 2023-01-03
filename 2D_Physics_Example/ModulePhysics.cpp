@@ -558,6 +558,8 @@ update_status ModulePhysics::PostUpdate()
 		shootx += METERS_TO_PIXELS(fuerza * sin(direction));
 		shooty += -METERS_TO_PIXELS(fuerza * cos(direction));
 
+		App->player->timer--;
+
 		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
 
 		//PhysBall* ball = new PhysBall;
@@ -592,6 +594,8 @@ update_status ModulePhysics::PostUpdate()
 		direction2 += 0.01f;
 		shootx2 += METERS_TO_PIXELS(fuerza * sin(direction2));
 		shooty2 += METERS_TO_PIXELS(fuerza * cos(direction2));
+
+		App->player->timer2--;
 
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
 
