@@ -547,13 +547,15 @@ update_status ModulePhysics::PreUpdate()
 update_status ModulePhysics::PostUpdate()
 {
 
-	// Draw Text
-	App->renderer->BlitText("Prueba GUI", 50, 50, 150, 30, { 255,255,0 });
-	App->renderer->BlitText("Prueba GUI 2", 50, 80, 150, 30, { 255,255,0 });
-	//App->renderer->BlitText("YES", 220, 50, 45, 30, { 255,255,0 });
+	// Draw GUI Text
+
+	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
+	App->renderer->BlitText("Aerodynamic", 50, 60, 150, 30, { 255,255,255 });
+	App->renderer->BlitText("Drag", 50, 90, 60, 30, { 255,255,255 });
+	App->renderer->BlitText("Buoyancy", 50, 120, 110, 30, { 255,255,255 });
 
 	// Control GUI
-
+	// Gravity Force
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		if (!gravitybool) gravitybool = true;
 		else gravitybool = false;
@@ -561,11 +563,56 @@ update_status ModulePhysics::PostUpdate()
 
 	if (gravitybool)
 	{
-		App->renderer->BlitText("Yes", 220, 310, 40, 30, { 255,255,0 });
+		App->renderer->BlitText("Yes", 220, 30, 40, 30, { 0,255,0 });
 	}
 
 	else {
-		App->renderer->BlitText("No", 220, 310, 40, 30, { 0 ,255,0 });
+		App->renderer->BlitText("No", 220, 30, 35, 30, { 255,0,0 });
+	}
+
+	//Aerodynamic Force
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		if (!aerodragbool) aerodragbool = true;
+		else aerodragbool = false;
+	}
+
+	if (aerodragbool)
+	{
+		App->renderer->BlitText("Yes", 220, 60, 40, 30, { 0,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 220, 60, 35, 30, { 255,0,0 });
+	}
+
+	//Hydrodynamic Drag Force
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		if (!hydrodragbool) hydrodragbool = true;
+		else hydrodragbool = false;
+	}
+
+	if (hydrodragbool)
+	{
+		App->renderer->BlitText("Yes", 220, 90, 40, 30, { 0,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 220, 90, 35, 30, { 255,0,0 });
+	}
+
+	//Hydrodynamic Buoyancy Force
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		if (!buoyancybool) buoyancybool = true;
+		else buoyancybool = false;
+	}
+
+	if (buoyancybool)
+	{
+		App->renderer->BlitText("Yes", 220, 120, 40, 30, { 0,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 220, 120, 35, 30, { 255,0,0 });
 	}
 	
 	// Colors
