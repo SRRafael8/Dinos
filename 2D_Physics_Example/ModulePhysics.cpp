@@ -255,30 +255,44 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
-		float fgx = ball.mass * 0.0f;
-		float fgy = ball.mass * -10.0f; // Let's assume gravity is constant and downwards
-		ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
+		if (gravitybool)
+		{
+			float fgx = ball.mass * 0.0f;
+			float fgy = ball.mass * -10.0f; // Let's assume gravity is constant and downwards
+			ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
+		}
 
 		// Aerodynamic Drag force (only when not in water)
-		if (!is_colliding_with_water(ball, water))
+		if (aerodragbool)
 		{
-			float fdx = 0.0f; float fdy = 0.0f;
-			compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
-			ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+			if (!is_colliding_with_water(ball, water))
+			{
+				float fdx = 0.0f; float fdy = 0.0f;
+				compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
+				ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+			}
 		}
 
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_with_water(ball, water))
 		{
-			// Hydrodynamic Drag force
-			float fhdx = 0.0f; float fhdy = 0.0f;
-			compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
-			ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
 
-			// Hydrodynamic Buoyancy force
-			float fhbx = 0.0f; float fhby = 0.0f;
-			compute_hydrodynamic_buoyancy(fhbx, fhby, ball, water);
-			ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
+			if (hydrodragbool)
+			{
+				// Hydrodynamic Drag force
+				float fhdx = 0.0f; float fhdy = 0.0f;
+				compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
+				ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
+			}
+
+
+			if (buoyancybool)
+			{
+				// Hydrodynamic Buoyancy force
+				float fhbx = 0.0f; float fhby = 0.0f;
+				compute_hydrodynamic_buoyancy(fhbx, fhby, ball, water);
+				ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
+			}
 		}
 
 		// Other forces
@@ -381,45 +395,35 @@ update_status ModulePhysics::PreUpdate()
 
 		// Gravity force
 		
-		if (gravitybool) 
-		{
-			float fgx = player.mass * 0.0f;
-			float fgy = player.mass * -10.0f; // Let's assume gravity is constant and downwards
-			player.fx += fgx; player.fy += fgy; // Add this force to ball's total force
-		}
+
+		float fgx = player.mass * 0.0f;
+		float fgy = player.mass * -10.0f; // Let's assume gravity is constant and downwards
+		player.fx += fgx; player.fy += fgy; // Add this force to ball's total force
+		
 
 		// Aerodynamic Drag force (only when not in water)
 		
-		if (aerodragbool) 
+		
+		if (!is_colliding_with_water(player, water))
 		{
-			if (!is_colliding_with_water(player, water))
-			{
-				float fdx = 0.0f; float fdy = 0.0f;
-				compute_aerodynamic_drag(fdx, fdy, player, atmosphere);
-				player.fx += fdx; player.fy += fdy; // Add this force to ball's total force
-			}
+			float fdx = 0.0f; float fdy = 0.0f;
+			compute_aerodynamic_drag(fdx, fdy, player, atmosphere);
+			player.fx += fdx; player.fy += fdy; // Add this force to ball's total force
 		}
+		
 
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_with_water(player, water))
 		{
-			
-			if (hydrodragbool)
-			{
-				// Hydrodynamic Drag force
-				float fhdx = 0.0f; float fhdy = 0.0f;
-				compute_hydrodynamic_drag(fhdx, fhdy, player, water);
-				player.fx += fhdx; player.fy += fhdy; // Add this force to ball's total force
-			}
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag(fhdx, fhdy, player, water);
+			player.fx += fhdx; player.fy += fhdy; // Add this force to ball's total force
 
-			
-			if (buoyancybool)
-			{
-				// Hydrodynamic Buoyancy force
-				float fhbx = 0.0f; float fhby = 0.0f;
-				compute_hydrodynamic_buoyancy(fhbx, fhby, player, water);
-				player.fx += fhbx; player.fy += fhby; // Add this force to ball's total force
-			}
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy(fhbx, fhby, player, water);
+			player.fx += fhbx; player.fy += fhby; // Add this force to ball's total force
 		}
 
 		// Other forces
