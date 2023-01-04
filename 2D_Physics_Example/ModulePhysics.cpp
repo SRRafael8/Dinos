@@ -393,7 +393,7 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_water(player, water))
 		{
 			
-			if (hydrodragbool) 
+			if (hydrodragbool)
 			{
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
@@ -538,7 +538,21 @@ update_status ModulePhysics::PostUpdate()
 
 	// Control GUI
 
-	 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		if (!gravitybool) gravitybool = true;
+		else gravitybool = false;
+	}
+
+
+	if (gravitybool)
+	{
+		App->renderer->BlitText("Yes", 220, 310, 40, 30, { 255,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 220, 310, 40, 30, { 0 ,255,0 });
+	}
+	
 	// Colors
 	int color_r, color_g, color_b;
 
