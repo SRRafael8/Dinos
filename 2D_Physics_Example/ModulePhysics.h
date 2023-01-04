@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include "Timer.h"
+#include "PerfTimer.h"
 
 
 #define PIXELS_PER_METER (20.0f) // if touched change METER_PER_PIXEL too
@@ -155,7 +157,8 @@ public:
 	Ground borde2{};
 
 	// Misc
-	float dt = 1.0 / 60.0;
+	float dt;
+	uint frames;
 	bool disparo = 0;
 	bool disparo2 = 0;
 	float shootx = 0;
@@ -178,6 +181,21 @@ public:
 private:
 
 	bool debug;
+	Timer timer;
+	PerfTimer ptimer;
+
+	Timer startupTime;
+	Timer frameTime;
+	Timer lastSecFrameTime;
+
+	uint64 frameCount = 0;
+	uint32 framesPerSecond = 0;
+	uint32 lastSecFrameCount = 0;
+
+	float averageFps = 0.0f;
+	float secondsSinceStartup = 0.0f;
+
+	float maxFrameDuration = 0;
 };
 
 // Compute modulus of a vector

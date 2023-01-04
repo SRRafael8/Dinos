@@ -10,6 +10,7 @@
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	debug = true;
+	frames = 0;
 }
 
 // Destructor
@@ -20,6 +21,13 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
+
+	//Delta Time
+	timer = Timer();
+	maxFrameDuration = 16;
+	timer.Start();
+	startupTime.Start();
+	lastSecFrameTime.Start();
 
 	//Create life
 	lifep1 = Ground();
@@ -224,6 +232,9 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
+	//Delta Time
+	frameTime.Start();
+
 	// Process all balls in the scenario
 	for (auto& ball : balls)
 	{
@@ -284,7 +295,7 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
-		integrator_velocity_verlet(ball, dt);
+		integrator_velocity_verlet(ball, maxFrameDuration/1000);
 
 		// Step #4: solve collisions
 		// ----------------------------------------------------------------------------------------
@@ -425,7 +436,7 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
-		integrator_velocity_verlet(player, dt);
+		integrator_velocity_verlet(player, maxFrameDuration/1000);
 
 		// Step #4: solve collisions
 		// ----------------------------------------------------------------------------------------
@@ -531,6 +542,7 @@ update_status ModulePhysics::PreUpdate()
 
 update_status ModulePhysics::PostUpdate()
 {
+
 	// Draw Text
 	App->renderer->BlitText("Prueba GUI", 50, 50, 150, 30, { 255,255,0 });
 	App->renderer->BlitText("Prueba GUI 2", 50, 80, 150, 30, { 255,255,0 });
@@ -542,7 +554,6 @@ update_status ModulePhysics::PostUpdate()
 		if (!gravitybool) gravitybool = true;
 		else gravitybool = false;
 	}
-
 
 	if (gravitybool)
 	{
@@ -739,6 +750,77 @@ update_status ModulePhysics::PostUpdate()
 
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
 
+	}
+
+	//Delta Time
+	// 
+	// Amount of frames since startup
+
+	frameCount++;
+
+	// Amount of time since game start (use a low resolution timer)
+
+	secondsSinceStartup = startupTime.ReadSec();
+
+	// Amount of ms took the last update
+
+	dt = frameTime.ReadMSec();
+
+	// Amount of frames during the last second
+
+	lastSecFrameCount++;
+
+	if (lastSecFrameTime.ReadMSec() > 1000) {
+
+		lastSecFrameTime.Start();
+
+		framesPerSecond = lastSecFrameCount;
+
+		lastSecFrameCount = 0;
+
+		// Average FPS for the whole game life
+
+		averageFps = (averageFps + framesPerSecond) / 2;
+
+	}
+
+	float delay = float(maxFrameDuration) - dt;
+
+	PerfTimer delayTimer = PerfTimer();
+
+	delayTimer.Start();
+
+	if (maxFrameDuration > 0 && delay > 0) {
+
+		SDL_Delay(delay);
+
+		LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
+
+		dt = maxFrameDuration;
+
+	}
+
+	// Shows the time measurements in the window title
+
+	static char title[256];
+
+	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+
+	App->window->SetTitle(title);
+
+	// Change FPS Delta Time
+	
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		maxFrameDuration = 33;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+		maxFrameDuration = 16;
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		maxFrameDuration = 11;
 	}
 
 	return UPDATE_CONTINUE;
