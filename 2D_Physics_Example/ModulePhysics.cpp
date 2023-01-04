@@ -738,6 +738,7 @@ update_status ModulePhysics::PostUpdate()
 		shooty2 = -METERS_TO_PIXELS(App->physics->players[1].y - 740);
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
+
 	if (disparo2 == 1) {
 
 		float r = METERS_TO_PIXELS(0.2f);
