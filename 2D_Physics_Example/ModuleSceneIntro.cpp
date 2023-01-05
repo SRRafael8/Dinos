@@ -40,7 +40,7 @@ update_status ModuleSceneIntro::Update()
 	// Death Players
 	
 
-	if (App->player->timerdeathp1 <= 0 && App->physics->deathp1 == false && App->physics->deathp2 == false) {
+	if (App->player->timerdeathp1 <= 0) {
 		App->renderer->Blit(deathplayer1, 0, 0);
 	}
 
