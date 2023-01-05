@@ -94,25 +94,24 @@ update_status ModulePlayer::Update()
 	//	App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	//}
 
-	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_DOWN)
-	{
-		laequis = App->input->GetMouseX();
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		App->physics->menosdirection = 0;
+		App->physics->masdirection = 0;
+
+		if (laequis) { laequis = false; }
+		else { laequis = true; }
 	}
-	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		if (App->input->GetMouseX() > laequis) { 
-			App->physics->masdirection =1;
+	if (laequis == true) {
+
+
+		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+			App->physics->masdirection = 1;
 			App->physics->menosdirection = 0;
 		}
-		if (App->input->GetMouseX() < laequis) { 
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
 			App->physics->menosdirection = 1;
 			App->physics->masdirection = 0;
 		}
-	}
-	if (App->input->GetKey(SDL_BUTTON_RIGHT) == KEY_UP) {
-		laequis = 0;
-		App->physics->masdirection = 0;
-		App->physics->menosdirection = 0;
 	}
 	return UPDATE_CONTINUE;
 }

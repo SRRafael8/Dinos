@@ -564,6 +564,7 @@ update_status ModulePhysics::PostUpdate()
 	App->renderer->BlitText("Aerodynamic", 50, 60, 150, 30, { 255,255,255 });
 	App->renderer->BlitText("Drag", 50, 90, 60, 30, { 255,255,255 });
 	App->renderer->BlitText("Buoyancy", 50, 120, 110, 30, { 255,255,255 });
+	App->renderer->BlitText("Shooting", 50, 150, 110, 30, { 255,255,255 });
 
 	// Control GUI
 	// Gravity Force
@@ -579,6 +580,15 @@ update_status ModulePhysics::PostUpdate()
 
 	else {
 		App->renderer->BlitText("No", 220, 30, 35, 30, { 255,0,0 });
+	}
+
+	if (App->player->laequis)
+	{
+		App->renderer->BlitText("Yes", 220, 150, 40, 30, { 0,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 220, 150, 35, 30, { 255,0,0 });
 	}
 
 	//Aerodynamic Force
@@ -704,9 +714,10 @@ update_status ModulePhysics::PostUpdate()
 		}
 
 		// Draw ball
-		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		if (App->player->laequis) {
+			App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		}
 
-		
 	}
 
 	for (auto& player : players)
@@ -768,27 +779,31 @@ update_status ModulePhysics::PostUpdate()
 		float r = METERS_TO_PIXELS(0.2f);
 		float fuerza = 0.4f;
 		direction -= -0.01f;
-		shootx += METERS_TO_PIXELS(fuerza * sin(direction));
+		shootx += METERS_TO_PIXELS(fuerza * sin(0.5f));
 		shooty += -METERS_TO_PIXELS(fuerza * cos(direction));
 
 		App->player->timer--;
 
 		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
 
-		//PhysBall* ball = new PhysBall;
-		//ball->x = METERS_TO_PIXELS(App->physics->players[0].x);
-		//ball->y = METERS_TO_PIXELS(App->physics->players[0].y);;
-		//ball->vx = 3;
-		//ball->vy = 3;
-		//ball->mass = 10.0f; // [kg]
-		//ball->surface = 1.0f; // [m^2]
-		//ball->radius = 0.5f; // [m]
-		//ball->cd = 0.4f; // [-]
-		//ball->cl = 1.2f; // [-]
-		//ball->b = 10.0f; // [...]
-		//ball->coef_friction = 0.9f; // [-]
-		//ball->coef_restitution = 0.8f; // [-]
-		//balls.emplace_back(ball);
+		for (auto& ball : balls)
+		{
+			/*PhysBall* ball = new PhysBall;*/
+			ball.x = METERS_TO_PIXELS(App->physics->players[0].x);
+			ball.y = METERS_TO_PIXELS(App->physics->players[0].y);
+			ball.vx = 3;
+			ball.vy = 3;
+			ball.mass = 10.0f; // [kg]
+			ball.surface = 1.0f; // [m^2]
+			ball.radius = 0.5f; // [m]
+			ball.cd = 0.4f; // [-]
+			ball.cl = 1.2f; // [-]
+			ball.b = 10.0f; // [...]
+			ball.coef_friction = 0.9f; // [-]
+			ball.coef_restitution = 0.8f; // [-]
+			App->renderer->DrawCircle(ball.x, ball.y, 3, color_r, color_g, color_b);
+			/*balls.emplace_back(ball);*/
+		}
 	}
 
 	if (disparo2 == 0) {
@@ -814,6 +829,13 @@ update_status ModulePhysics::PostUpdate()
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
 
 	}
+
+	//if (masdirection) {
+	//	direction++;
+	//}
+	//if (menosdirection) {
+	//	direction--;
+	//}
 
 	//Delta Time
 	// 

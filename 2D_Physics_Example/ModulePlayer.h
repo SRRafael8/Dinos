@@ -44,7 +44,7 @@ public:
 
 	PhysBody* sensor1;
 
-	float laequis;
+	bool laequis;
 
 	int timer = 200;
 	int timer2 = 200;
