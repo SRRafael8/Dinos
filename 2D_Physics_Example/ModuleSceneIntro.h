@@ -74,4 +74,7 @@ public:
 
 	PhysBody* player_lose;
 	uint player_lose_fx;
+
+	SDL_Texture* deathplayer1;
+	SDL_Texture* deathplayer2;
 };

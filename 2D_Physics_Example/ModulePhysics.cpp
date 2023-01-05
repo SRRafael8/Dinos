@@ -232,6 +232,7 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
+
 	//Delta Time
 	frameTime.Start();
 
@@ -532,12 +533,22 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_water(players[0], waterdeath))
 		{
 			lifep1.w = 0.0f;
+			deathp1 = true;
 		}
 		if (is_colliding_with_water(players[1], waterdeath))
 		{
 			lifep2.w = 0.0f;
+			deathp2 = true;
 		}
-		
+
+		if (deathp1 == true) {
+			App->player->timerdeathp1--;
+		}
+
+		if (deathp2 == true) {
+			App->player->timerdeathp2--;
+		}
+
 	}
 
 	// Continue game

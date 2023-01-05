@@ -156,6 +156,9 @@ public:
 	Ground borde{};
 	Ground borde2{};
 
+	bool deathp1 = false;
+	bool deathp2 = false;
+
 	// Misc
 	float dt;
 	uint frames;
