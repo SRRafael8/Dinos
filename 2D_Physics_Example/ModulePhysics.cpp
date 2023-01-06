@@ -662,10 +662,10 @@ update_status ModulePhysics::PostUpdate()
 	App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
 
 	// Draw water
-	color_r = 0; color_g = 0; color_b = 255;
+	color_r = 255; color_g = 143; color_b = 220;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 0; color_b = 184;
+	color_r = 255; color_g = 130; color_b = 216;
 	App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
 
 	//Draw life
