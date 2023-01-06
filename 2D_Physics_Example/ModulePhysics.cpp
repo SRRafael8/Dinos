@@ -829,6 +829,7 @@ update_status ModulePhysics::PostUpdate()
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
 
 	}
+	
 
 	//if (masdirection) {
 	//	direction++;

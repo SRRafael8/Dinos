@@ -42,10 +42,50 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->player->timerdeathp1 <= 0) {
 		App->renderer->Blit(deathplayer1, 0, 0);
+		win = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && win == true) {
+		SDL_DestroyTexture(deathplayer1);
+		App->physics->deathp1 = false;
+		App->physics->deathp2 = false;
+		App->player->timerdeathp1 = 50;
+		App->player->timerdeathp2 = 50;
+		App->physics->lifep1.w = 5.0f;
+		App->physics->lifep2.w = 5.0f;
+		win = false;
+
+		//return players to initial position
+		//player1
+		App->physics->players[0].x = 3.0f;
+		App->physics->players[0].y = (App->physics->ground.y + App->physics->ground.h);
+
+		////player2
+		App->physics->players[1].x = 48.0f;
+		App->physics->players[1].y = (App->physics->ground.y + App->physics->ground.h);
 	}
 
 	if (App->player->timerdeathp2 <= 0) {
 		App->renderer->Blit(deathplayer2, 0, 0);
+		win = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && win == true) {
+		SDL_DestroyTexture(deathplayer2);
+		App->physics->deathp1 = false;
+		App->physics->deathp2 = false;
+		App->player->timerdeathp1 = 50;
+		App->player->timerdeathp2 = 50;
+		App->physics->lifep1.w = 5.0f;
+		App->physics->lifep2.w = 5.0f;
+		win = false;
+
+		//return players to initial position
+		//player1
+		App->physics->players[0].x = 3.0f;
+		App->physics->players[0].y = (App->physics->ground.y + App->physics->ground.h);
+
+		////player2
+		App->physics->players[1].x = 48.0f;
+		App->physics->players[1].y = (App->physics->ground.y + App->physics->ground.h);
 	}
 
 	return UPDATE_CONTINUE;

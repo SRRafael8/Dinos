@@ -77,4 +77,6 @@ public:
 
 	SDL_Texture* deathplayer1;
 	SDL_Texture* deathplayer2;
+
+	bool win = false;
 };
