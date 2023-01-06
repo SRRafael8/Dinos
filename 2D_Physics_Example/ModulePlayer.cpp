@@ -33,7 +33,7 @@ update_status ModulePlayer::Update()
 {
 
 	//PLAYER 1
-	if (App->physics->deathp1 == false && App->physics->deathp2 == false) {
+	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio == false && App->scene_intro->introscenes == false) {
 		//Move left
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			App->physics->players[0].vx = -1.0f;
@@ -58,7 +58,7 @@ update_status ModulePlayer::Update()
 	}
 	//PLAYER 2
 	//Move left
-	if (App->physics->deathp1 == false && App->physics->deathp2 == false) {
+	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio==false && App->scene_intro->introscenes==false) {
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			App->physics->players[1].vx = -1.0f;
 		}

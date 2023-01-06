@@ -20,6 +20,7 @@ ModulePhysics::~ModulePhysics()
 
 bool ModulePhysics::Start()
 {
+
 	LOG("Creating Physics 2D environment");
 
 	//Delta Time
@@ -826,10 +827,51 @@ update_status ModulePhysics::PostUpdate()
 
 		App->player->timer2--;
 
+		
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
-
 	}
 	
+
+	if (App->player->timerdeathp1 <= 0) {
+		App->renderer->Blit(App->scene_intro->deathplayer1, 0, 0);
+		App->scene_intro->win = true;
+	}
+	if (App->player->timerdeathp2 <= 0) {
+		App->renderer->Blit(App->scene_intro->deathplayer2, 0, 0);
+		App->scene_intro->win = true;
+	}
+
+	//Scenes Intro
+	if (inicio == true) {
+		App->renderer->Blit(App->scene_intro->scenelogo, 0, 0);
+
+		timerintro--;
+	}
+	
+
+
+	if (timerintro <= 0) {
+		App->renderer->Blit(App->scene_intro->scenegame, 0, 0);
+		SDL_DestroyTexture(App->scene_intro->scenelogo);
+		App->scene_intro->scenelogo = App->textures->Load("Assets/Scenes/OurLogo.png");
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			SDL_DestroyTexture(App->scene_intro->scenegame);
+			App->scene_intro->scenegame = App->textures->Load("Assets/Scenes/GameScene.png");
+			inicio = false;
+			App->scene_intro->introscenes = false;
+			timerintro = 100;
+		}
+	}
+
+	if (App->scene_intro->introscenes == true && App->scene_intro->win==false) {
+		App->renderer->Blit(App->scene_intro->scenegame, 0, 0);
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			SDL_DestroyTexture(App->scene_intro->scenegame);
+			App->scene_intro->scenegame = App->textures->Load("Assets/Scenes/GameScene.png");
+			inicio = false;
+			App->scene_intro->introscenes = false;
+		}
+	}
 
 	//if (masdirection) {
 	//	direction++;

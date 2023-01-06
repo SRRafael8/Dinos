@@ -159,6 +159,10 @@ public:
 	bool deathp1 = false;
 	bool deathp2 = false;
 
+	bool inicio = true;
+
+	int timerintro = 100;
+
 	// Misc
 	float dt;
 	uint frames;

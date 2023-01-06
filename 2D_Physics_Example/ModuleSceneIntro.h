@@ -75,8 +75,12 @@ public:
 	PhysBody* player_lose;
 	uint player_lose_fx;
 
+	SDL_Texture* scenelogo;
+	SDL_Texture* scenegame;
+
 	SDL_Texture* deathplayer1;
 	SDL_Texture* deathplayer2;
 
 	bool win = false;
+	bool introscenes = false;
 };
