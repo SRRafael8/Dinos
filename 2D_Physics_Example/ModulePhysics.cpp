@@ -114,7 +114,7 @@ bool ModulePhysics::Start()
 	ground4.h = 15.0f; // [m]
 
 	ground5 = Ground();
-	ground5.x = 20.0f; // [m]
+	ground5.x = 21.0f; // [m]
 	ground5.y = 25.0f; // [m]
 	ground5.w = 10.0f; // [m]
 	ground5.h = 1.0f; // [m]
@@ -130,6 +130,13 @@ bool ModulePhysics::Start()
 	ground7.y = 15.3f; // [m]
 	ground7.w = 1.0f; // [m]
 	ground7.h = 6.0f; // [m]
+
+	//Loading bar
+	bar = Ground();
+	bar.x = -30.0f; // [m]
+	bar.y = 5.0f; // [m]
+	bar.w = 0.01f; // [m]
+	bar.h = 0.5f; // [m]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
@@ -845,12 +852,15 @@ update_status ModulePhysics::PostUpdate()
 	if (inicio == true) {
 		App->renderer->Blit(App->scene_intro->scenelogo, 0, 0);
 
+		color_r = 255; color_g = 255; color_b = 255;
+		App->renderer->DrawQuad(bar.pixels(), color_r, color_g, color_b);
+		bar.w++;
+
 		timerintro--;
 	}
-	
-
 
 	if (timerintro <= 0) {
+		bar.w = 0.0f;
 		App->renderer->Blit(App->scene_intro->scenegame, 0, 0);
 		SDL_DestroyTexture(App->scene_intro->scenelogo);
 		App->scene_intro->scenelogo = App->textures->Load("Assets/Scenes/OurLogo.png");
@@ -872,6 +882,7 @@ update_status ModulePhysics::PostUpdate()
 			App->scene_intro->introscenes = false;
 		}
 	}
+
 
 	//if (masdirection) {
 	//	direction++;

@@ -50,8 +50,8 @@ update_status ModuleSceneIntro::Update()
 		deathplayer1 = App->textures->Load("Assets/Scenes/Player2win.png");
 		App->physics->deathp1 = false;
 		App->physics->deathp2 = false;
-		App->player->timerdeathp1 = 50;
-		App->player->timerdeathp2 = 50;
+		App->player->timerdeathp1 = 260;
+		App->player->timerdeathp2 = 260;
 		App->physics->lifep1.w = 5.0f;
 		App->physics->lifep2.w = 5.0f;
 		win = false;
@@ -75,8 +75,8 @@ update_status ModuleSceneIntro::Update()
 		deathplayer2 = App->textures->Load("Assets/Scenes/Player1win.png");
 		App->physics->deathp1 = false;
 		App->physics->deathp2 = false;
-		App->player->timerdeathp1 = 50;
-		App->player->timerdeathp2 = 50;
+		App->player->timerdeathp1 = 260;
+		App->player->timerdeathp2 = 260;
 		App->physics->lifep1.w = 5.0f;
 		App->physics->lifep2.w = 5.0f;
 		win = false;

@@ -49,6 +49,6 @@ public:
 	int timer = 200;
 	int timer2 = 200;
 
-	int timerdeathp1 = 50;
-	int timerdeathp2 = 50;
+	int timerdeathp1 = 260;
+	int timerdeathp2 = 260;
 };

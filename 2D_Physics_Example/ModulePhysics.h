@@ -147,6 +147,9 @@ public:
 	Ground ground5{};
 	Ground ground6{};
 	Ground ground7{};
+	
+	//Loading bar
+	Ground bar{};
 
 	//Life
 	Ground lifep1{};
