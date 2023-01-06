@@ -50,11 +50,17 @@ update_status ModulePlayer::Update()
 		}
 
 		//Shoot
-		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { App->physics->disparo = 1; }
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { 
+			App->physics->disparo = 1; 
+			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, 0.0f, 0.0f, 255, 0, 0);
+			App->physics->bullets.emplace_back(bullet);
+		}
+
 		if (timer == 0) {
 			App->physics->disparo = 0;
 			timer = 200;
 		}
+
 	}
 	//PLAYER 2
 	//Move left
@@ -76,7 +82,10 @@ update_status ModulePlayer::Update()
 		//Shoot
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 			App->physics->disparo2 = 1;
+			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, 0.0f, 0.0f, 255, 0, 0);
+			App->physics->bullets.emplace_back(bullet);
 		}
+
 		if (timer2 == 0) {
 			App->physics->disparo2 = 0;
 			timer2 = 200;

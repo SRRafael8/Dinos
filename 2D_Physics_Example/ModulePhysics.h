@@ -17,6 +17,39 @@
 class PhysBall
 {
 public:
+	PhysBall() {}
+
+	PhysBall(float mass, float surface, float radius, float cd, float cl, float b, float coef_friction, float coef_restitution, float x, float y, float vx, float vy, int color_r, int color_g, int color_b) {
+
+		// Set static properties of the ball
+		this->mass = mass; // [kg]
+		this->surface = surface; // [m^2]
+		this->radius = radius; // [m]
+		this->cd = cd; // [-]
+		this->cl = cl; // [-]
+		this->b = b; // [...]
+		this->coef_friction = coef_friction; // [-]
+		this->coef_restitution = coef_restitution; // [-]
+
+		// Set initial position and velocity of the ball
+		this->x = x;
+		this->y = y;
+		this->vx = vx;
+		this->vy = vy;
+
+		// Set color of the ball
+
+		this->Red = color_r;
+		this->Green = color_g;
+		this->Blue = color_b;
+
+	}
+
+	// Colours bullet
+	int Red;
+	int Green;
+	int Blue;
+
 	// Position
 	// You could also use an array/vector
 	float x;
@@ -137,6 +170,7 @@ public:
 	// Physics objects
 	std::vector<PhysBall> balls{};
 	std::vector<PhysBall> players{};
+	std::vector<PhysBall> bullets{};
 	Atmosphere atmosphere{};
 	Ground ground{};
 	Ground ground2{};

@@ -384,6 +384,145 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
+	for (auto& bullet : bullets)
+	{
+		// Skip ball if physics not enabled
+		if (!bullet.physics_enabled)
+		{
+			continue;
+		}
+
+		// Step #0: Clear old values
+		// ----------------------------------------------------------------------------------------
+
+		// Reset total acceleration and total accumulated force of the ball
+		bullet.fx = bullet.fy = 0.0f;
+		bullet.ax = bullet.ay = 0.0f;
+
+		// Step #1: Compute forces
+		// ----------------------------------------------------------------------------------------
+
+		// Gravity force
+		if (gravitybool)
+		{
+			float fgx = bullet.mass * 0.0f;
+			float fgy = bullet.mass * -10.0f; // Let's assume gravity is constant and downwards
+			bullet.fx += fgx; bullet.fy += fgy; // Add this force to ball's total force
+		}
+
+		// Aerodynamic Drag force (only when not in water)
+		if (aerodragbool)
+		{
+			if (!is_colliding_with_water(bullet, water))
+			{
+				float fdx = 0.0f; float fdy = 0.0f;
+				compute_aerodynamic_drag(fdx, fdy, bullet, atmosphere);
+				bullet.fx += fdx; bullet.fy += fdy; // Add this force to ball's total force
+			}
+		}
+
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_with_water(bullet, water))
+		{
+
+			if (hydrodragbool)
+			{
+				// Hydrodynamic Drag force
+				float fhdx = 0.0f; float fhdy = 0.0f;
+				compute_hydrodynamic_drag(fhdx, fhdy, bullet, water);
+				bullet.fx += fhdx; bullet.fy += fhdy; // Add this force to ball's total force
+			}
+
+
+			if (buoyancybool)
+			{
+				// Hydrodynamic Buoyancy force
+				float fhbx = 0.0f; float fhby = 0.0f;
+				compute_hydrodynamic_buoyancy(fhbx, fhby, bullet, water);
+				bullet.fx += fhbx; bullet.fy += fhby; // Add this force to ball's total force
+			}
+		}
+
+		// Other forces
+		// ...
+
+		// Step #2: 2nd Newton's Law
+		// ----------------------------------------------------------------------------------------
+
+		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
+		bullet.ax = bullet.fx / bullet.mass;
+		bullet.ay = bullet.fy / bullet.mass;
+
+		// Step #3: Integrate --> from accel to new velocity & new position
+		// ----------------------------------------------------------------------------------------
+
+		// We will use the 2nd order "Velocity Verlet" method for integration.
+		integrator_velocity_verlet(bullet, maxFrameDuration / 1000);
+
+		// Step #4: solve collisions
+		// ----------------------------------------------------------------------------------------
+
+		// Solve collision between ball and ground
+		if (is_colliding_with_ground(bullet, ground))
+		{
+			// TP ball to ground surface
+			bullet.y = ground.y + ground.h + bullet.radius;
+
+			// Elastic bounce with ground
+			bullet.vy = -bullet.vy;
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, ground2))
+		{
+			// TP ball to ground surface
+			bullet.y = ground2.y + ground2.h + bullet.radius;
+
+			// Elastic bounce with ground
+			bullet.vy = -bullet.vy;
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, ground3))
+		{
+			// TP ball to ground surface
+			bullet.y = ground3.y + ground3.h + bullet.radius;
+
+			// Elastic bounce with ground
+			bullet.vy = -bullet.vy;
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, ground4))
+		{
+			// TP ball to ground surface
+			bullet.y = ground4.y + ground4.h + bullet.radius;
+
+			// Elastic bounce with ground
+			bullet.vy = -bullet.vy;
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, ground5))
+		{
+
+			// Elastic bounce with ground
+			bullet.vy = -bullet.vy;
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+	}
+
 	for (auto& player : players)
 	{
 		// Skip ball if physics not enabled
@@ -565,7 +704,6 @@ update_status ModulePhysics::PreUpdate()
 
 update_status ModulePhysics::PostUpdate()
 {
-
 	// Draw GUI Text
 
 	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
@@ -713,6 +851,30 @@ update_status ModulePhysics::PostUpdate()
 
 		// Select color
 		if (ball.physics_enabled)
+		{
+			color_r = 255; color_g = 255; color_b = 255;
+		}
+		else
+		{
+			color_r = 255; color_g = 0; color_b = 0;
+		}
+
+		// Draw ball
+		if (App->player->laequis) {
+			App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		}
+
+	}
+
+	for (auto& bullet : bullets)
+	{
+		// Convert from physical magnitudes to geometrical pixels
+		int pos_x = METERS_TO_PIXELS(bullet.x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(bullet.y);
+		int size_r = METERS_TO_PIXELS(bullet.radius);
+
+		// Select color
+		if (bullet.physics_enabled)
 		{
 			color_r = 255; color_g = 255; color_b = 255;
 		}
