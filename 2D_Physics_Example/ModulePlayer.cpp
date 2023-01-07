@@ -76,14 +76,11 @@ update_status ModulePlayer::Update()
 			App->physics->disparo = 0;
 			timer = 200;
 		}
-<<<<<<< Updated upstream
 
 		if (timerplayer1 <= -500) {
 			timerplayer1 = 1000;
 		}
 
-=======
->>>>>>> Stashed changes
 	}
 	//PLAYER 2
 	//Move left
@@ -108,9 +105,20 @@ update_status ModulePlayer::Update()
 			App->physics->players[1].vx = 0.0f;
 		}
 		//Shoot
+
+		if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+			xup2++;
+			yup2++;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			xup2--;
+			yup2--;
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 			App->physics->disparo2 = 1;
-			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, 0.0f, 0.0f, 255, 0, 0);
+			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, xup2, yup2, 255, 0, 0);
 			App->physics->bullets.emplace_back(bullet);
 			
 			timerplayer1 = 0;

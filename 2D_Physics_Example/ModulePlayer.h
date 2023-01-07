@@ -48,6 +48,9 @@ public:
 
 	float xup = 20.0f;
 	float yup = 10.0f;
+	float xup2 = -20.0f;
+	float yup2 = 10.0f;
+
 
 	int timer = 200;
 	int timer2 = 200;
