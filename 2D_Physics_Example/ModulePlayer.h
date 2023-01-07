@@ -51,4 +51,7 @@ public:
 
 	int timerdeathp1 = 260;
 	int timerdeathp2 = 260;
+
+	int timerplayer1 = 1000;
+	int timerplayer2 = 1000;
 };

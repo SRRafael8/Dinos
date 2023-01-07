@@ -138,6 +138,19 @@ bool ModulePhysics::Start()
 	bar.w = 0.01f; // [m]
 	bar.h = 0.5f; // [m]
 
+	//Time bars
+	barp1 = Ground();
+	barp1.x = 0.0f; // [m]
+	barp1.y = 20.0f; // [m]
+	barp1.w = 1.0f; // [m]
+	barp1.h = 10.0f; // [m]
+
+	barp2 = Ground();
+	barp2.x = 50.2f; // [m]
+	barp2.y = 20.0f; // [m]
+	barp2.w = 1.0f; // [m]
+	barp2.h = 10.0f; // [m]
+
 	// Create atmosphere
 	atmosphere = Atmosphere();
 	atmosphere.windx = 0.0f; // [m/s]
@@ -842,7 +855,13 @@ update_status ModulePhysics::PostUpdate()
 
 	// Draw Boat
 	color_r = 200; color_g = 100; color_b = 40;
-	
+
+	//Draw time bars
+	color_r = 255; color_g = 205; color_b = 53;
+	App->renderer->DrawQuad(barp1.pixels(), color_r, color_g, color_b);
+
+	color_r = 54; color_g = 78; color_b = 255;
+	App->renderer->DrawQuad(barp2.pixels(), color_r, color_g, color_b);
 
 	 //Draw all balls in the scenario
 	for (auto& ball : balls)
@@ -1036,6 +1055,10 @@ update_status ModulePhysics::PostUpdate()
 			App->scene_intro->introscenes = false;
 			timerintro = 100;
 		}
+	}
+
+	if (inicio == false) {
+		App->player->timerplayer1--;
 	}
 
 	if (App->scene_intro->introscenes == true && App->scene_intro->win==false) {

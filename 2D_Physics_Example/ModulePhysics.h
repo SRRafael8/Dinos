@@ -185,6 +185,10 @@ public:
 	//Loading bar
 	Ground bar{};
 
+	//Time Bars
+	Ground barp1{};
+	Ground barp2{};
+
 	//Life
 	Ground lifep1{};
 	Ground lifep2{};
