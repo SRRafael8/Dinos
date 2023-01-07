@@ -118,7 +118,7 @@ update_status ModulePlayer::Update()
 
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 			App->physics->disparo2 = 1;
-			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, xup2, yup2, 255, 0, 0);
+			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, xup2, yup2, 255, 0, 255);
 			App->physics->bullets.emplace_back(bullet);
 			
 			timerplayer1 = 0;
