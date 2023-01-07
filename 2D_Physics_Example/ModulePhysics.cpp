@@ -1220,11 +1220,11 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water)
 }
 
 // Detect collision with bullet
-bool is_colliding_with_water(const PhysBall& player, const PhysBall& bullet)
+bool is_colliding_with_bullet(const PhysBall& player, const PhysBall& bullet)
 {
 	float rect_x = (bullet.x + bullet.radius ); // Center of rectangle
 	float rect_y = (bullet.y + bullet.radius ); // Center of rectangle
-	return check_collision_circle_rectangle(bullet.x, bullet.y, bullet.radius, rect_x, rect_y, bullet.radius, bullet.radius);
+	return check_collision_circle_circle(bullet.x, bullet.y, bullet.radius, rect_x, rect_y, bullet.radius);
 }
 
 // Detect collision between circle and rectange
@@ -1247,6 +1247,29 @@ bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, fl
 	// If all of above fails, check corners
 	float a = dist_x - rw / 2.0f;
 	float b = dist_y - rh / 2.0f;
+	float cornerDistance_sq = a * a + b * b;
+	return (cornerDistance_sq <= (cr * cr));
+}
+
+bool check_collision_circle_circle(float cx, float cy, float cr, float c2x, float c2y, float c2r)
+{
+	// Algorithm taken from https://stackoverflow.com/a/402010
+
+	// Distance from center of circle to center of rectangle
+	float dist_x = std::abs(cx - c2x);
+	float dist_y = std::abs(cy - c2y);
+
+	// If circle is further than half-rectangle, not intersecting
+	if (dist_x > (c2r + cr)) { return false; }
+	if (dist_y > (c2r + cr)) { return false; }
+
+	// If circle is closer than half-rectangle, is intersecting
+	if (dist_x <= (c2r)) { return true; }
+	if (dist_y <= (c2r)) { return true; }
+
+	// If all of above fails, check corners
+	float a = dist_x - c2r;
+	float b = dist_y - c2r;
 	float cornerDistance_sq = a * a + b * b;
 	return (cornerDistance_sq <= (cr * cr));
 }

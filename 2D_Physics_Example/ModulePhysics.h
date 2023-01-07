@@ -273,4 +273,6 @@ bool is_colliding_with_bullet(const PhysBall& player, const PhysBall& bullet);
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
 
+bool check_collision_circle_circle(float cx, float cy, float cr, float c2x, float c2y, float c2r);
+
 
