@@ -60,4 +60,6 @@ public:
 
 	int timerplayer1 = 1000;
 	int timerplayer2 = 1000;
+
+	bool turn = 0;
 };
