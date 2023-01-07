@@ -52,7 +52,7 @@ update_status ModulePlayer::Update()
 		//Shoot
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { 
 			App->physics->disparo = 1; 
-			PhysBall bullet = PhysBall(10.0f, 1.0f, 0.5f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, 0.0f, 0.0f, 255, 0, 0);
+			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, 20.0f, 10.0f, 255, 255, 0);
 			App->physics->bullets.emplace_back(bullet);
 		}
 
