@@ -548,9 +548,27 @@ update_status ModulePhysics::PreUpdate()
 			bullet.vx *= bullet.coef_friction;
 			bullet.vy *= bullet.coef_restitution;
 		}
-		if (is_colliding_with_bullet(players[0], bullet))
+		if (is_colliding_with_bullet(bullet, players[0]))
 		{
-			lifep1.w = -1.0f;
+			if (damage == true) {
+				lifep1.w = lifep1.w - 1.0f;
+				damage = false;
+			}
+		}
+		if (is_colliding_with_bullet(bullet, players[1]))
+		{
+			if (damage2 == true) {
+				lifep2.w = lifep2.w - 1.0f;
+				lifep2.x = lifep2.x + 1.0f;
+				damage2 = false;
+			
+			}
+		}
+		if (lifep2.w <= 0.0f) {
+			deathp2 = true;
+		}
+		if (lifep1.w <= 0.0f) {
+			deathp1 = true;
 		}
 	}
 

@@ -204,6 +204,8 @@ public:
 
 	int timerintro = 100;
 
+	bool damage = true;
+	bool damage2 = false;
 	// Misc
 	float dt;
 	uint frames;

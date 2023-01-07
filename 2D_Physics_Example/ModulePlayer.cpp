@@ -72,7 +72,7 @@ update_status ModulePlayer::Update()
 
 			timerplayer1 = 1000;
 
-			
+			App->physics->damage2 = true;
 		}
 		if (timer == 0) {
 			App->physics->disparo = 0;
@@ -124,7 +124,7 @@ update_status ModulePlayer::Update()
 			
 			timerplayer1 = 0;
 
-			
+			App->physics->damage = true;
 		}
 		if (timer2 == 0) {
 			App->physics->disparo2 = 0;

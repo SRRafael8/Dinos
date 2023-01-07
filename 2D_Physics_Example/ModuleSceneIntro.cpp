@@ -56,6 +56,7 @@ update_status ModuleSceneIntro::Update()
 		App->player->timerdeathp2 = 260;
 		App->physics->lifep1.w = 5.0f;
 		App->physics->lifep2.w = 5.0f;
+		App->physics->lifep2.x = 45.1f;
 		win = false;
 
 		introscenes = true;
@@ -81,6 +82,7 @@ update_status ModuleSceneIntro::Update()
 		App->player->timerdeathp2 = 260;
 		App->physics->lifep1.w = 5.0f;
 		App->physics->lifep2.w = 5.0f;
+		App->physics->lifep2.x = 45.1f;
 		win = false;
 
 		introscenes = true;
