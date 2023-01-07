@@ -267,6 +267,9 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);
 // Detect collision with water
 bool is_colliding_with_water(const PhysBall& ball, const Water& water);
 
+// Detect collision with bullet
+bool is_colliding_with_bullet(const PhysBall& player, const PhysBall& bullet);
+
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
 

@@ -548,6 +548,10 @@ update_status ModulePhysics::PreUpdate()
 			bullet.vx *= bullet.coef_friction;
 			bullet.vy *= bullet.coef_restitution;
 		}
+		if (is_colliding_with_bullet(players[0], bullet))
+		{
+			lifep1.w = -1.0f;
+		}
 	}
 
 	for (auto& player : players)
@@ -720,6 +724,8 @@ update_status ModulePhysics::PreUpdate()
 		if (deathp2 == true) {
 			App->player->timerdeathp2--;
 		}
+
+		
 
 	}
 
@@ -1211,6 +1217,14 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water)
 	float rect_x = (water.x + water.w / 2.0f); // Center of rectangle
 	float rect_y = (water.y + water.h / 2.0f); // Center of rectangle
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, water.w, water.h);
+}
+
+// Detect collision with bullet
+bool is_colliding_with_water(const PhysBall& player, const PhysBall& bullet)
+{
+	float rect_x = (bullet.x + bullet.radius ); // Center of rectangle
+	float rect_y = (bullet.y + bullet.radius ); // Center of rectangle
+	return check_collision_circle_rectangle(bullet.x, bullet.y, bullet.radius, rect_x, rect_y, bullet.radius, bullet.radius);
 }
 
 // Detect collision between circle and rectange
