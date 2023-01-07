@@ -46,6 +46,9 @@ public:
 
 	bool laequis;
 
+	float xup = 20.0f;
+	float yup = 10.0f;
+
 	int timer = 200;
 	int timer2 = 200;
 

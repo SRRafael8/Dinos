@@ -43,35 +43,47 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			App->physics->players[0].vx = -1.0f;
 		}
-
 		//Move right
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			App->physics->players[0].vx = 1.0f;
 		}
-
 		//idle condition
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
 			App->physics->players[0].vx = 0.0f;
 		}
-
 		//Shoot
+
+		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+			xup--;
+			yup++;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+			xup++;
+			yup--;
+		}
+
+
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) { 
 			App->physics->disparo = 1; 
-			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, 20.0f, 10.0f, 255, 255, 0);
+
+			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, xup, yup, 255, 255, 0);
 			App->physics->bullets.emplace_back(bullet);
 
 			timerplayer1 = 1000;
 		}
-
 		if (timer == 0) {
 			App->physics->disparo = 0;
 			timer = 200;
 		}
+<<<<<<< Updated upstream
 
 		if (timerplayer1 <= -500) {
 			timerplayer1 = 1000;
 		}
 
+=======
+>>>>>>> Stashed changes
 	}
 	//PLAYER 2
 	//Move left
@@ -87,17 +99,14 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			App->physics->players[1].vx = -1.0f;
 		}
-
 		//Move right
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			App->physics->players[1].vx = 1.0f;
 		}
-
 		//idle condition
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_IDLE && App->input->GetKey(SDL_SCANCODE_J) == KEY_IDLE) {
 			App->physics->players[1].vx = 0.0f;
 		}
-
 		//Shoot
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 			App->physics->disparo2 = 1;
@@ -106,23 +115,11 @@ update_status ModulePlayer::Update()
 			
 			timerplayer1 = 0;
 		}
-
 		if (timer2 == 0) {
 			App->physics->disparo2 = 0;
 			timer2 = 200;
 		}
 	}
-	
-
-	////Shoot
-	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-	//	int x = App->physics->players[1].x;
-	//	int y = App->physics->players[1].y;
-	//	float r = 0.5f;
-	//	float vx = 0;
-	//	float vy = 0;
-	//	App->renderer->DrawCircle(x, y, r, 255, 100, 100);
-	//}
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
 		App->physics->menosdirection = 0;

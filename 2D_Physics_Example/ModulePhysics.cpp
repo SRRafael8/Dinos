@@ -252,7 +252,6 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
-
 	//Delta Time
 	frameTime.Start();
 
@@ -264,17 +263,12 @@ update_status ModulePhysics::PreUpdate()
 		{
 			continue;
 		}
-
-		// Step #0: Clear old values
-		// ----------------------------------------------------------------------------------------
 		
 		// Reset total acceleration and total accumulated force of the ball
 		ball.fx = ball.fy = 0.0f;
 		ball.ax = ball.ay = 0.0f;
 
-		// Step #1: Compute forces
-		// ----------------------------------------------------------------------------------------
-
+		
 		// Gravity force
 		if (gravitybool)
 		{
@@ -282,7 +276,6 @@ update_status ModulePhysics::PreUpdate()
 			float fgy = ball.mass * -10.0f; // Let's assume gravity is constant and downwards
 			ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
 		}
-
 		// Aerodynamic Drag force (only when not in water)
 		if (aerodragbool)
 		{
@@ -293,11 +286,9 @@ update_status ModulePhysics::PreUpdate()
 				ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
 			}
 		}
-
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_with_water(ball, water))
 		{
-
 			if (hydrodragbool)
 			{
 				// Hydrodynamic Drag force
@@ -305,8 +296,6 @@ update_status ModulePhysics::PreUpdate()
 				compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
 				ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
 			}
-
-
 			if (buoyancybool)
 			{
 				// Hydrodynamic Buoyancy force
@@ -315,19 +304,12 @@ update_status ModulePhysics::PreUpdate()
 				ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
 			}
 		}
-
-		// Other forces
-		// ...
-
-		// Step #2: 2nd Newton's Law
-		// ----------------------------------------------------------------------------------------
-		
+		//2nd Newton's Law		
 		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
 		ball.ax = ball.fx / ball.mass;
 		ball.ay = ball.fy / ball.mass;
 
-		// Step #3: Integrate --> from accel to new velocity & new position
-		// ----------------------------------------------------------------------------------------
+		//Integrate --> from accel to new velocity & new position
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
 		integrator_velocity_verlet(ball, maxFrameDuration/1000);
@@ -405,14 +387,10 @@ update_status ModulePhysics::PreUpdate()
 		}
 
 		// Step #0: Clear old values
-		// ----------------------------------------------------------------------------------------
 
 		// Reset total acceleration and total accumulated force of the ball
 		bullet.fx = bullet.fy = 0.0f;
 		bullet.ax = bullet.ay = 0.0f;
-
-		// Step #1: Compute forces
-		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
 		if (gravitybool)
@@ -436,7 +414,6 @@ update_status ModulePhysics::PreUpdate()
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_with_water(bullet, water))
 		{
-
 			if (hydrodragbool)
 			{
 				// Hydrodynamic Drag force
@@ -444,8 +421,6 @@ update_status ModulePhysics::PreUpdate()
 				compute_hydrodynamic_drag(fhdx, fhdy, bullet, water);
 				bullet.fx += fhdx; bullet.fy += fhdy; // Add this force to ball's total force
 			}
-
-
 			if (buoyancybool)
 			{
 				// Hydrodynamic Buoyancy force
@@ -455,24 +430,16 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
-		// Other forces
-		// ...
-
-		// Step #2: 2nd Newton's Law
-		// ----------------------------------------------------------------------------------------
+		//2nd Newton's Law
 
 		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
 		bullet.ax = bullet.fx / bullet.mass;
 		bullet.ay = bullet.fy / bullet.mass;
 
-		// Step #3: Integrate --> from accel to new velocity & new position
-		// ----------------------------------------------------------------------------------------
+		//Integrate --> from accel to new velocity & new position
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
 		integrator_velocity_verlet(bullet, maxFrameDuration / 1000);
-
-		// Step #4: solve collisions
-		// ----------------------------------------------------------------------------------------
 
 		// Solve collision between ball and ground
 		if (is_colliding_with_ground(bullet, ground))
@@ -997,7 +964,6 @@ update_status ModulePhysics::PostUpdate()
 			/*balls.emplace_back(ball);*/
 		}
 	}
-
 	if (disparo2 == 0) {
 		int x = App->physics->players[0].x;
 		int y = App->physics->players[0].y - 700;
@@ -1007,7 +973,6 @@ update_status ModulePhysics::PostUpdate()
 		shooty2 = -METERS_TO_PIXELS(App->physics->players[1].y - 740);
 		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
 	}
-
 	if (disparo2 == 1) {
 
 		float r = METERS_TO_PIXELS(0.2f);
@@ -1021,8 +986,6 @@ update_status ModulePhysics::PostUpdate()
 		
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
 	}
-	
-
 	if (App->player->timerdeathp1 <= 0) {
 		App->renderer->Blit(App->scene_intro->deathplayer1, 0, 0);
 		App->scene_intro->win = true;
@@ -1070,13 +1033,6 @@ update_status ModulePhysics::PostUpdate()
 			App->scene_intro->introscenes = false;
 		}
 	}
-
-	//if (masdirection) {
-	//	direction++;
-	//}
-	//if (menosdirection) {
-	//	direction--;
-	//}
 
 	//Delta Time
 	// 
