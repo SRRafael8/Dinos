@@ -113,11 +113,11 @@ bool ModulePhysics::Start()
 	ground4.w = 7.0f; // [m]
 	ground4.h = 15.0f; // [m]
 
-	ground5 = Ground();
-	ground5.x = 21.0f; // [m]
-	ground5.y = 25.0f; // [m]
-	ground5.w = 10.0f; // [m]
-	ground5.h = 1.0f; // [m]
+	//ground5 = Ground();
+	//ground5.x = 21.0f; // [m]
+	//ground5.y = 25.0f; // [m]
+	//ground5.w = 10.0f; // [m]
+	//ground5.h = 1.0f; // [m]
 
 	ground6 = Ground();
 	ground6.x = -1.0f; // [m]
@@ -366,16 +366,16 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
-		if (is_colliding_with_ground(ball, ground5))
-		{
+		//if (is_colliding_with_ground(ball, ground5))
+		//{
 
-			// Elastic bounce with ground
-			ball.vy = -ball.vy;
+		//	// Elastic bounce with ground
+		//	ball.vy = -ball.vy;
 
-			// FUYM non-elasticity
-			ball.vx *= ball.coef_friction;
-			ball.vy *= ball.coef_restitution;
-		}
+		//	// FUYM non-elasticity
+		//	ball.vx *= ball.coef_friction;
+		//	ball.vy *= ball.coef_restitution;
+		//}
 	}
 
 	for (auto& bullet : bullets)
@@ -849,9 +849,9 @@ update_status ModulePhysics::PostUpdate()
 		}
 
 		// Draw ball
-		if (App->player->laequis) {
-			App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
-		}
+		//if (App->player->laequis) {
+		//	App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		//}
 
 	}
 
@@ -933,7 +933,7 @@ update_status ModulePhysics::PostUpdate()
 
 
 	}
-	if(disparo == 1){
+	/*if(disparo == 1){
 
 		float r = METERS_TO_PIXELS(0.2f);
 		float fuerza = 0.4f;
@@ -943,26 +943,7 @@ update_status ModulePhysics::PostUpdate()
 
 		App->player->timer--;
 
-		App->renderer->DrawCircle(shootx, shooty, r, 255, 100, 100);
 
-		for (auto& ball : balls)
-		{
-			/*PhysBall* ball = new PhysBall;*/
-			ball.x = METERS_TO_PIXELS(App->physics->players[0].x);
-			ball.y = METERS_TO_PIXELS(App->physics->players[0].y);
-			ball.vx = 3;
-			ball.vy = 3;
-			ball.mass = 10.0f; // [kg]
-			ball.surface = 1.0f; // [m^2]
-			ball.radius = 0.5f; // [m]
-			ball.cd = 0.4f; // [-]
-			ball.cl = 1.2f; // [-]
-			ball.b = 10.0f; // [...]
-			ball.coef_friction = 0.9f; // [-]
-			ball.coef_restitution = 0.8f; // [-]
-			App->renderer->DrawCircle(ball.x, ball.y, 3, color_r, color_g, color_b);
-			/*balls.emplace_back(ball);*/
-		}
 	}
 	if (disparo2 == 0) {
 		int x = App->physics->players[0].x;
@@ -985,7 +966,7 @@ update_status ModulePhysics::PostUpdate()
 
 		
 		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
-	}
+	}*/
 	if (App->player->timerdeathp1 <= 0) {
 		App->renderer->Blit(App->scene_intro->deathplayer1, 0, 0);
 		App->scene_intro->win = true;

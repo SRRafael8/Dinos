@@ -130,23 +130,10 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		App->physics->menosdirection = 0;
-		App->physics->masdirection = 0;
+
 
 		if (laequis) { laequis = false; }
 		else { laequis = true; }
-	}
-	if (laequis == true) {
-
-
-		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
-			App->physics->masdirection = 1;
-			App->physics->menosdirection = 0;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
-			App->physics->menosdirection = 1;
-			App->physics->masdirection = 0;
-		}
 	}
 	return UPDATE_CONTINUE;
 }

@@ -44,7 +44,7 @@ public:
 
 	PhysBody* sensor1;
 
-	bool laequis;
+	bool laequis = true;
 
 	float xup = 20.0f;
 	float yup = 10.0f;
