@@ -67,7 +67,7 @@ update_status ModulePlayer::Update()
 
 			App->physics->disparo = 1; 
 
-			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y, xup, yup, 255, 255, 0);
+			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y + App->physics->players[0].radius + 0.3f, xup, yup, 255, 255, 0);
 			App->physics->bullets.emplace_back(bullet);
 
 			timerplayer1 = 1000;
@@ -119,7 +119,7 @@ update_status ModulePlayer::Update()
 
 		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 			App->physics->disparo2 = 1;
-			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y, xup2, yup2, 255, 0, 255);
+			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[1].x, App->physics->players[1].y + App->physics->players[1].radius + 0.3f, xup2, yup2, 255, 0, 255);
 			App->physics->bullets.emplace_back(bullet);
 			
 			timerplayer1 = 0;

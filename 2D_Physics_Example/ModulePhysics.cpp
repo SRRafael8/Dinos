@@ -1240,9 +1240,7 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water)
 // Detect collision with bullet
 bool is_colliding_with_bullet(const PhysBall& player, const PhysBall& bullet)
 {
-	float rect_x = (bullet.x + bullet.radius ); // Center of rectangle
-	float rect_y = (bullet.y + bullet.radius ); // Center of rectangle
-	return check_collision_circle_circle(bullet.x, bullet.y, bullet.radius, rect_x, rect_y, bullet.radius);
+	return check_collision_circle_circle(bullet.x, bullet.y, bullet.radius, player.x, player.y, player.radius);
 }
 
 // Detect collision between circle and rectange
@@ -1284,12 +1282,6 @@ bool check_collision_circle_circle(float cx, float cy, float cr, float c2x, floa
 	// If circle is closer than half-rectangle, is intersecting
 	if (dist_x <= (c2r)) { return true; }
 	if (dist_y <= (c2r)) { return true; }
-
-	// If all of above fails, check corners
-	float a = dist_x - c2r;
-	float b = dist_y - c2r;
-	float cornerDistance_sq = a * a + b * b;
-	return (cornerDistance_sq <= (cr * cr));
 }
 
 // Convert from meters to pixels (for SDL drawing)
