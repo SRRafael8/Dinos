@@ -445,10 +445,18 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_ground(bullet, ground))
 		{
 			// TP ball to ground surface
-			bullet.y = ground.y + ground.h + bullet.radius;
+			
+			if (bullet.y >= ground.y + ground.h) {
+				bullet.y = ground.y + ground.h + bullet.radius;
+				bullet.vy = -bullet.vy;
+			}
+			if (bullet.y < ground.y + ground.h) {
+				bullet.x = ground.x + ground.w + bullet.radius;
+				bullet.vx = bullet.vx * -1;
+			}
 
 			// Elastic bounce with ground
-			bullet.vy = -bullet.vy;
+			
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -457,10 +465,18 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_ground(bullet, ground2))
 		{
 			// TP ball to ground surface
-			bullet.y = ground2.y + ground2.h + bullet.radius;
 
-			// Elastic bounce with ground
-			bullet.vy = -bullet.vy;
+			if (bullet.y >= ground2.y + ground2.h) {
+				bullet.y = ground2.y + ground2.h + bullet.radius;
+
+				// Elastic bounce with ground
+				bullet.vy = -bullet.vy;
+			}
+			if (bullet.y < ground2.y + ground2.h) {
+				bullet.x = ground2.x + ground2.w + bullet.radius;
+				bullet.vx = bullet.vx * -1;
+			}
+			
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -468,11 +484,19 @@ update_status ModulePhysics::PreUpdate()
 		}
 		if (is_colliding_with_ground(bullet, ground3))
 		{
-			// TP ball to ground surface
-			bullet.y = ground3.y + ground3.h + bullet.radius;
 
-			// Elastic bounce with ground
-			bullet.vy = -bullet.vy;
+			if (bullet.y >= ground3.y + ground3.h) {
+				// TP ball to ground surface
+				bullet.y = ground3.y + ground3.h + bullet.radius;
+
+				// Elastic bounce with ground
+				bullet.vy = -bullet.vy;
+			}
+			if (bullet.y < ground3.y + ground3.h) {
+				bullet.x = ground3.x - 0.2f;
+				bullet.vx = bullet.vx * -1;
+			}
+	
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -480,21 +504,45 @@ update_status ModulePhysics::PreUpdate()
 		}
 		if (is_colliding_with_ground(bullet, ground4))
 		{
-			// TP ball to ground surface
-			bullet.y = ground4.y + ground4.h + bullet.radius;
 
-			// Elastic bounce with ground
-			bullet.vy = -bullet.vy;
+			if (bullet.y >= ground4.y + ground4.h) {
+				// TP ball to ground surface
+				bullet.y = ground4.y + ground4.h + bullet.radius;
+
+				// Elastic bounce with ground
+				bullet.vy = -bullet.vy;
+			}
+			if (bullet.y < ground4.y + ground4.h) {
+				bullet.x = ground4.x - 0.2f;
+				bullet.vx = bullet.vx * -1;
+			}
+			
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
 			bullet.vy *= bullet.coef_restitution;
 		}
-		if (is_colliding_with_ground(bullet, ground5))
+		if (is_colliding_with_ground(bullet, ground6))
 		{
+			// TP ball to ground surface
+			bullet.x = ground6.x + ground6.w + bullet.radius;
+			bullet.vx= bullet.vx * -1;
 
 			// Elastic bounce with ground
-			bullet.vy = -bullet.vy;
+			
+
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, ground7))
+		{
+			// TP ball to ground surface
+			bullet.x = ground7.x - ground7.w + bullet.radius + 0.5f;
+			bullet.vx = bullet.vx*-1;
+
+			// Elastic bounce with ground
+			
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;

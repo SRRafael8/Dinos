@@ -33,7 +33,7 @@ update_status ModulePlayer::Update()
 {
 
 	//PLAYER 1
-	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio == false && App->scene_intro->introscenes == false && timerplayer1<=0 && turn==1) {
+	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio == false && App->scene_intro->introscenes == false && timerplayer1<=0) {
 
 		App->physics->barp2.h = 0;
 		App->physics->barp1.h = 10;
@@ -72,7 +72,7 @@ update_status ModulePlayer::Update()
 
 			timerplayer1 = 1000;
 
-			turn = 0;
+			
 		}
 		if (timer == 0) {
 			App->physics->disparo = 0;
@@ -86,7 +86,7 @@ update_status ModulePlayer::Update()
 	}
 	//PLAYER 2
 	//Move left
-	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio==false && App->scene_intro->introscenes==false && timerplayer1>0 && turn==0) {
+	if (App->physics->deathp1 == false && App->physics->deathp2 == false && App->physics->inicio==false && App->scene_intro->introscenes==false && timerplayer1>0) {
 
 		timerplayer1--;
 
@@ -124,7 +124,7 @@ update_status ModulePlayer::Update()
 			
 			timerplayer1 = 0;
 
-			turn = 1;
+			
 		}
 		if (timer2 == 0) {
 			App->physics->disparo2 = 0;
