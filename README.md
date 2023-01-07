@@ -1,9 +1,9 @@
 # WormsGame
 
 ## Description
-Worms logic game for the physics subject.
+Physics logic game based on 'Worms' game for the physics subject.
 
-**Original game:** 
+**Original game:** Worms
 
 **Github Link:** https://github.com/SRRafael8/WormsGame
 
@@ -14,11 +14,18 @@ Worms logic game for the physics subject.
 Player 1(Left):
  - D: Move right
  - A: Move left
+ - K: Shoot
 
 Player 2 (Right):
+ - L: Move right
+ - J: Move left
+ - S: Shoot
 
 ## Debug
-
+ - F1: Activate/Deactivate gravity
+ - F2: Activate/Deactivate aerodynamicsb
+ - F3: Activate/Deactivate drag
+ - F4: Activate/Deactivate bouyancy
 
 ## Developers
 
