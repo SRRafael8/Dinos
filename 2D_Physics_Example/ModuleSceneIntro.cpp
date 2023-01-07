@@ -23,6 +23,8 @@ bool ModuleSceneIntro::Start()
 	scenegame = App->textures->Load("Assets/Scenes/GameScene.png");
 	scenelogo = App->textures->Load("Assets/Scenes/OurLogo.png");
 
+	background = App->textures->Load("Assets/Scenes/Background.png");
+
 	deathplayer1 = App->textures->Load("Assets/Scenes/Player2win.png");
 	deathplayer2 = App->textures->Load("Assets/Scenes/Player1win.png");
 

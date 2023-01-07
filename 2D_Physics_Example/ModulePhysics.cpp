@@ -188,7 +188,6 @@ bool ModulePhysics::Start()
 	// Add ball to the collection
 	players.emplace_back(player);
 
-
 	// Create the player2
 	PhysBall player2 = PhysBall();
 
@@ -550,8 +549,6 @@ update_status ModulePhysics::PreUpdate()
 		
 
 		// Aerodynamic Drag force (only when not in water)
-		
-		
 		if (!is_colliding_with_water(player, water))
 		{
 			float fdx = 0.0f; float fdy = 0.0f;
@@ -704,8 +701,15 @@ update_status ModulePhysics::PreUpdate()
 
 update_status ModulePhysics::PostUpdate()
 {
+	//Background
+	if (inicio == false && App->scene_intro->introscenes == false && App->scene_intro->win == false) {
+		App->renderer->Blit(App->scene_intro->background, -340, 0);
+		if (App->scene_intro->introscenes == true && App->scene_intro->win == true) {
+			SDL_DestroyTexture(App->scene_intro->background);
+		}
+	}
+	
 	// Draw GUI Text
-
 	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
 	App->renderer->BlitText("Aerodynamic", 50, 60, 150, 30, { 255,255,255 });
 	App->renderer->BlitText("Drag", 50, 90, 60, 30, { 255,255,255 });
@@ -808,14 +812,13 @@ update_status ModulePhysics::PostUpdate()
 	App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
 
 	// Draw water
-	color_r = 255; color_g = 143; color_b = 220;
+	color_r = 255; color_g = 139; color_b = 15;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
-	color_r = 255; color_g = 130; color_b = 216;
+	color_r = 255; color_g = 75; color_b = 15;
 	App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
 
 	//Draw life
-
 	App->renderer->BlitText("Player 1", 16, 693, 70, 20, { 0,0,0 });
 	App->renderer->BlitText("Player 2", 934, 693, 70, 20, { 0,0,0 });
 
@@ -1045,7 +1048,6 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
-
 	//if (masdirection) {
 	//	direction++;
 	//}
@@ -1138,7 +1140,6 @@ float modulus(float vx, float vy)
 {
 	return std::sqrt(vx * vx + vy * vy);
 }
-
 
 
 // Compute Aerodynamic Drag force

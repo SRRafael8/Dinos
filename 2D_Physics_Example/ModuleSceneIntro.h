@@ -54,7 +54,7 @@ public:
 public:
 
 	SDL_Texture* graphics;
-	PhysBody* background;
+	//PhysBody* background;
 
 	Bouncer bouncer1;
 	Bouncer bouncer2;
@@ -77,6 +77,8 @@ public:
 
 	SDL_Texture* scenelogo;
 	SDL_Texture* scenegame;
+
+	SDL_Texture* background;
 
 	SDL_Texture* deathplayer1;
 	SDL_Texture* deathplayer2;
