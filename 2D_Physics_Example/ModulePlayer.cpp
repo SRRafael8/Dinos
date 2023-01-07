@@ -52,13 +52,23 @@ update_status ModulePlayer::Update()
 		}
 		//Shoot
 
-		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			xup--;
 			yup++;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 			xup++;
+			yup--;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			xup++;
+			yup++;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			xup--;
 			yup--;
 		}
 
@@ -107,13 +117,23 @@ update_status ModulePlayer::Update()
 		}
 		//Shoot
 
-		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			xup2++;
 			yup2++;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 			xup2--;
+			yup2--;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			xup2--;
+			yup2++;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			xup2++;
 			yup2--;
 		}
 
