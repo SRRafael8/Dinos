@@ -446,17 +446,30 @@ update_status ModulePhysics::PreUpdate()
 		integrator_velocity_verlet(bullet, maxFrameDuration / 1000);
 
 		// Solve collision between ball and ground
+		if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+			if (fade == true) {
+				fade = false;
+			}
+			else {
+				fade = true;
+			}
+		}
+
 		if (is_colliding_with_ground(bullet, ground))
 		{
 			// TP ball to ground surface
-			
-			if (bullet.y >= ground.y + ground.h) {
-				bullet.y = ground.y + ground.h + bullet.radius;
-				bullet.vy = -bullet.vy;
+			if (fade == false) {
+				if (bullet.y >= ground.y + ground.h) {
+					bullet.y = ground.y + ground.h + bullet.radius;
+					bullet.vy = -bullet.vy;
+				}
+				if (bullet.y < ground.y + ground.h) {
+					bullet.x = ground.x + ground.w + bullet.radius;
+					bullet.vx = bullet.vx * -1;
+				}
 			}
-			if (bullet.y < ground.y + ground.h) {
-				bullet.x = ground.x + ground.w + bullet.radius;
-				bullet.vx = bullet.vx * -1;
+			if (fade == true) {
+				bullet.x = -200;
 			}
 
 			// Elastic bounce with ground
@@ -469,18 +482,22 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_ground(bullet, ground2))
 		{
 			// TP ball to ground surface
+			if (fade == false) {
+				if (bullet.y >= ground2.y + ground2.h) {
+					bullet.y = ground2.y + ground2.h + bullet.radius;
 
-			if (bullet.y >= ground2.y + ground2.h) {
-				bullet.y = ground2.y + ground2.h + bullet.radius;
-
-				// Elastic bounce with ground
-				bullet.vy = -bullet.vy;
-			}
-			if (bullet.y < ground2.y + ground2.h) {
-				bullet.x = ground2.x + ground2.w + bullet.radius;
-				bullet.vx = bullet.vx * -1;
+					// Elastic bounce with ground
+					bullet.vy = -bullet.vy;
+				}
+				if (bullet.y < ground2.y + ground2.h) {
+					bullet.x = ground2.x + ground2.w + bullet.radius;
+					bullet.vx = bullet.vx * -1;
+				}
 			}
 			
+			if (fade == true) {
+				bullet.x = -200;
+			}
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -488,19 +505,23 @@ update_status ModulePhysics::PreUpdate()
 		}
 		if (is_colliding_with_ground(bullet, ground3))
 		{
+			if (fade == false) {
+				if (bullet.y >= ground3.y + ground3.h) {
+					// TP ball to ground surface
+					bullet.y = ground3.y + ground3.h + bullet.radius;
 
-			if (bullet.y >= ground3.y + ground3.h) {
-				// TP ball to ground surface
-				bullet.y = ground3.y + ground3.h + bullet.radius;
-
-				// Elastic bounce with ground
-				bullet.vy = -bullet.vy;
+					// Elastic bounce with ground
+					bullet.vy = -bullet.vy;
+				}
+				if (bullet.y < ground3.y + ground3.h) {
+					bullet.x = ground3.x - 0.2f;
+					bullet.vx = bullet.vx * -1;
+				}
 			}
-			if (bullet.y < ground3.y + ground3.h) {
-				bullet.x = ground3.x - 0.2f;
-				bullet.vx = bullet.vx * -1;
+			
+			if (fade == true) {
+				bullet.x = -200;
 			}
-	
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -508,19 +529,23 @@ update_status ModulePhysics::PreUpdate()
 		}
 		if (is_colliding_with_ground(bullet, ground4))
 		{
+			if (fade == false) {
+				if (bullet.y >= ground4.y + ground4.h) {
+					// TP ball to ground surface
+					bullet.y = ground4.y + ground4.h + bullet.radius;
 
-			if (bullet.y >= ground4.y + ground4.h) {
-				// TP ball to ground surface
-				bullet.y = ground4.y + ground4.h + bullet.radius;
-
-				// Elastic bounce with ground
-				bullet.vy = -bullet.vy;
-			}
-			if (bullet.y < ground4.y + ground4.h) {
-				bullet.x = ground4.x - 0.2f;
-				bullet.vx = bullet.vx * -1;
+					// Elastic bounce with ground
+					bullet.vy = -bullet.vy;
+				}
+				if (bullet.y < ground4.y + ground4.h) {
+					bullet.x = ground4.x - 0.2f;
+					bullet.vx = bullet.vx * -1;
+				}
 			}
 			
+			if (fade == true) {
+				bullet.x = -200;
+			}
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -574,6 +599,9 @@ update_status ModulePhysics::PreUpdate()
 				lifep1.w = lifep1.w - 1.0f;
 				damage = false;
 			}
+			if (fade == true) {
+				bullet.x = -200;
+			}
 		}
 		if (is_colliding_with_bullet(bullet, players[1]))
 		{
@@ -581,7 +609,9 @@ update_status ModulePhysics::PreUpdate()
 				lifep2.w = lifep2.w - 1.0f;
 				lifep2.x = lifep2.x + 1.0f;
 				damage2 = false;
-			
+			}
+			if (fade == true) {
+				bullet.x = -200;
 			}
 		}
 		if (lifep2.w <= 0.0f) {

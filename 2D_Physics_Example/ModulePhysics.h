@@ -215,6 +215,8 @@ public:
 
 	bool damage = true;
 	bool damage2 = false;
+
+	bool fade = false;
 	// Misc
 	float dt;
 	uint frames;
