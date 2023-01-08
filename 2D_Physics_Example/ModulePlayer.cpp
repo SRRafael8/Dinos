@@ -19,7 +19,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 	
 	//Texturas
-	stone = App->textures->Load("Assets/Sprites/StoneR.png");
+	stone = App->textures->Load("Assets/Sprites/Stone.png");
 
 	return true;
 }
