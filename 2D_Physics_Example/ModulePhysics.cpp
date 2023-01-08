@@ -862,44 +862,54 @@ update_status ModulePhysics::PostUpdate()
 		App->renderer->BlitText("No", 220, 120, 35, 30, { 255,0,0 });
 	}
 	
+	// Draw world collisions
+	if (showcollisions == 0 && App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		showcollisions = 1;
+	}
+
+	if (showcollisions == 1 && App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		showcollisions = 0;
+	}
+
+	//Draw Setas
+	App->renderer->Blit(App->scene_intro->seta, 0, 0);
+
 	// Colors
 	int color_r, color_g, color_b;
 
 	// Draw ground
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+	if (showcollisions == 1) {
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground2.pixels(), color_r, color_g, color_b);
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground2.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground3.pixels(), color_r, color_g, color_b);
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground3.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground4.pixels(), color_r, color_g, color_b);
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground4.pixels(), color_r, color_g, color_b);
 
-	color_r = 128; color_g = 64; color_b = 0;
-	App->renderer->DrawQuad(ground5.pixels(), color_r, color_g, color_b);
+		color_r = 128; color_g = 64; color_b = 0;
+		App->renderer->DrawQuad(ground5.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground6.pixels(), color_r, color_g, color_b);
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground6.pixels(), color_r, color_g, color_b);
 
-	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
 
-	color_r = 255; color_g = 0; color_b = 0;
-	App->renderer->DrawQuad(groundlife.pixels(), color_r, color_g, color_b);
+		color_r = 255; color_g = 0; color_b = 0;
+		App->renderer->DrawQuad(groundlife.pixels(), color_r, color_g, color_b);
 
-	// Draw water
-	color_r = 255; color_g = 139; color_b = 15;
-	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+		// Draw water
+		color_r = 255; color_g = 139; color_b = 15;
+		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
-	color_r = 255; color_g = 75; color_b = 15;
-	App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
-
-
-	//Draw Setas
-	App->renderer->Blit(App->scene_intro->seta, 0, 0);
+		color_r = 255; color_g = 75; color_b = 15;
+		App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
+	}
 
 	//Draw life
 	App->renderer->BlitText("Player 1", 16, 693, 70, 20, { 0,0,0 });

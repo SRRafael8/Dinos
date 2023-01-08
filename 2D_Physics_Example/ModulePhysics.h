@@ -224,6 +224,7 @@ public:
 	float direction2 = 0;
 	float menosdirection = 0;
 	float masdirection = 0;
+	int showcollisions = 0;
 
 	// Bool GUI
 	bool gravitybool = true;
