@@ -14,12 +14,18 @@ Physics logic game based on 'Worms' game for the physics subject.
 Player 1(Left):
  - D: Move right
  - A: Move left
- - K: Shoot
+ - N: Shoot
 
 Player 2 (Right):
  - L: Move right
  - J: Move left
- - S: Shoot
+ - M: Shoot
+
+Aim (Both players):
+ - Up arrow: augment angle
+ - Down arrow: lower angle
+ - Right arrow: augment power
+ - Left arrow: lower power
 
 ## Debug
  - F1: Activate/Deactivate gravity
