@@ -45,14 +45,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	//Heart Movement
-	if (App->physics->corazondireccion == 1) {
-		App->physics->corazonx--;
-		
-	}
-	if (App->physics->corazondireccion == 0) {		
-		App->physics->corazonx++;
-	}
+	
 
 	// Death Players
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT && win == true) {

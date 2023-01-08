@@ -209,7 +209,7 @@ public:
 
 	int timerintro = 100;
 
-	int corazonx = 190;
+	int corazonx = 490;
 	int corazony = 67;
 	bool corazondireccion = 0;
 

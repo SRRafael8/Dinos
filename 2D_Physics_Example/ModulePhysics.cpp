@@ -138,7 +138,7 @@ bool ModulePhysics::Start()
 	ground7.h = 6.0f; // [m]
 
 	groundlife = Ground();
-	groundlife.x = 25.1f; // [m]
+	groundlife.x = 24.8f; // [m]
 	groundlife.y = 33.3f; // [m]
 	groundlife.w = 1.0f; // [m]
 	groundlife.h = 1.0f; // [m]
@@ -795,16 +795,7 @@ update_status ModulePhysics::PreUpdate()
 
 	}
 
-	if (groundlife.x < 5) {
-		corazondireccion = 0;
-	}
-	if (groundlife.x > 10) {
-		corazondireccion = 1;
-	}
-	if (corazondireccion == 0) {
-		groundlife.x = groundlife.x + 0.01f;
-	}
-
+	
 	// Continue game
 	return UPDATE_CONTINUE;
 }
@@ -825,7 +816,7 @@ update_status ModulePhysics::PostUpdate()
 		groundlife.x = groundlife.x - 0.01f;
 	}
 
-	App->renderer->Blit(App->scene_intro->heart, METERS_TO_PIXELS(groundlife.x), METERS_TO_PIXELS(groundlife.y));
+	App->renderer->Blit(App->scene_intro->heart, corazonx, corazony);
 
 	// Draw GUI Text
 	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
