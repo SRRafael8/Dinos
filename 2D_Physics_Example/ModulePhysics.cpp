@@ -753,6 +753,16 @@ update_status ModulePhysics::PreUpdate()
 
 	}
 
+	if (groundlife.x < 5) {
+		corazondireccion = 0;
+	}
+	if (groundlife.x > 10) {
+		corazondireccion = 1;
+	}
+	if (corazondireccion == 0) {
+		groundlife.x = groundlife.x + 0.01f;
+	}
+
 	// Continue game
 	return UPDATE_CONTINUE;
 }
@@ -768,7 +778,12 @@ update_status ModulePhysics::PostUpdate()
 	}
 	
 	//Draw Heart
-	App->renderer->Blit(App->scene_intro->heart, corazonx, corazony);
+
+	if (corazondireccion == 1) {
+		groundlife.x = groundlife.x - 0.01f;
+	}
+
+	App->renderer->Blit(App->scene_intro->heart, METERS_TO_PIXELS(groundlife.x), METERS_TO_PIXELS(groundlife.y));
 
 	// Draw GUI Text
 	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
@@ -1053,12 +1068,12 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
-	if (corazonx >= 800) {
-		corazondireccion = 1;
-	}
-	if (corazonx <= 190) {
-		corazondireccion = 0;
-	}
+	//if (corazonx >= 800) {
+	//	corazondireccion = 1;
+	//}
+	//if (corazonx <= 190) {
+	//	corazondireccion = 0;
+	//}
 
 	if (inicio == false) {
 		App->player->timerplayer1--;
