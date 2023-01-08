@@ -8,7 +8,14 @@ Physics logic game based on 'Worms' game for the physics subject.
 **Github Link:** https://github.com/SRRafael8/WormsGame
 
 ## Features
-
+ - 1 vs 1 game in turns.
+ - The player can move horizontally and climb the vine.
+ - The player's turn is marked by the bar on the side. Each turn is 8 seconds.
+ - To win you have to defeat the enemy by shooting them, with only one shot available per turn.
+ - Player can change the angle and force of the shot.
+ - During the other player's turn the player cannot move.
+ - If you fall into the water you die automatically.
+ - Game loop available.
 
 ## Controls
 Player 1(Left):
@@ -22,6 +29,7 @@ Player 2 (Right):
  - M: Shoot
 
 Aim (Both players):
+Have to spam the corresponding button
  - Up arrow: augment angle
  - Down arrow: lower angle
  - Right arrow: augment power
@@ -37,18 +45,16 @@ Aim (Both players):
  - F8, F9, F10: Game runs at 30, 60 or 90 fps respectively
 
 ## Developers
-
  - Iván Bermúdez Sagra
  - Rafael Esquius Pérez
  - Pau Garriga Brotons
  - Joel Romero Botella
 
 ## Solved Bugs
- Bullets trespassing ground barriers --> solved
- Player taking damage when shooting -->solved
- Bullets damaging enemy more than one time per turn -->solved
- Players shooting the same bullet at the same time --> solved
+ - Bullets trespassing ground barriers --> solved
+ - Player taking damage when shooting -->solved
+ - Bullets damaging enemy more than one time per turn -->solved
+ - Players shooting the same bullet at the same time --> solved
 
 ## License
-
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
