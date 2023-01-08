@@ -44,7 +44,10 @@ Aim (Both players):
  - Joel Romero Botella
 
 ## Solved Bugs
- 
+ Bullets trespassing ground barriers --> solved
+ Player taking damage when shooting -->solved
+ Bullets damaging enemy more than one time per turn -->solved
+ Players shooting the same bullet at the same time --> solved
 
 ## License
 
