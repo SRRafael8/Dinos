@@ -55,6 +55,18 @@ bool ModulePhysics::Start()
 	lifep2g.w = 5.0f; // [m]
 	lifep2g.h = 1.0f; // [m]
 
+	degree1 = Ground();
+	degree1.x = 10.0f; // [m]
+	degree1.y = 27.5f; // [m]
+	degree1.w = 5.0f; // [m]
+	degree1.h = 1.0f; // [m]
+
+	degree2 = Ground();
+	degree2.x = 10.0f; // [m]
+	degree2.y = 26.0f; // [m]
+	degree2.w = 5.0f; // [m]
+	degree2.h = 1.0f; // [m]
+
 	borde = Ground();
 	borde.x = 0.7f; // [m]
 	borde.y = 0.75f; // [m]
@@ -792,6 +804,9 @@ update_status ModulePhysics::PostUpdate()
 	App->renderer->BlitText("Buoyancy", 50, 120, 110, 30, { 255,255,255 });
 	App->renderer->BlitText("Shooting", 50, 150, 110, 30, { 255,255,255 });
 
+	App->renderer->BlitText("grados p1:", 50, 180, 150, 30, { 255,255,255 });
+	App->renderer->BlitText("grados p2:", 50, 210, 150, 30, { 255,255,255 });
+
 	// Control GUI
 	// Gravity Force
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
@@ -932,6 +947,13 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 255; color_g = 0; color_b = 0;
 	App->renderer->DrawQuad(lifep2.pixels(), color_r, color_g, color_b);
+
+	//draw degree bar
+	color_r = 54; color_g = 78; color_b = 255;
+	App->renderer->DrawQuad(degree2.pixels(), color_r, color_g, color_b);
+
+	color_r = 255; color_g = 200; color_b = 0;
+	App->renderer->DrawQuad(degree1.pixels(), color_r, color_g, color_b);
 
 	// Draw Boat
 	color_r = 200; color_g = 100; color_b = 40;

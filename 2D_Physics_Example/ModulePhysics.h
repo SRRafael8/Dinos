@@ -198,6 +198,10 @@ public:
 	Ground borde{};
 	Ground borde2{};
 
+	//degree bar:
+	Ground degree1{};
+	Ground degree2{};
+
 	bool deathp1 = false;
 	bool deathp2 = false;
 

@@ -59,11 +59,13 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			xup--;
 			yup++;
+			App->physics->degree1.w = App->physics->degree1.w + 0.1f;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 			xup++;
 			yup--;
+			App->physics->degree1.w = App->physics->degree1.w - 0.1f;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
@@ -80,7 +82,7 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
 
 			App->physics->disparo = 1; 
-
+			
 			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y + App->physics->players[0].radius + 0.3f, xup, yup, 255, 255, 0);
 			App->physics->bullets.emplace_back(bullet);
 
@@ -129,11 +131,13 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			xup2++;
 			yup2++;
+			App->physics->degree2.w = App->physics->degree2.w + 0.1f;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 			xup2--;
 			yup2--;
+			App->physics->degree2.w = App->physics->degree2.w - 0.1f;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
