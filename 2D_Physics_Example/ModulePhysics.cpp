@@ -837,6 +837,8 @@ update_status ModulePhysics::PostUpdate()
 	App->renderer->BlitText("grados p1:", 50, 180, 150, 30, { 255,255,255 });
 	App->renderer->BlitText("grados p2:", 50, 210, 150, 30, { 255,255,255 });
 
+	App->renderer->BlitText("Buonce Bullet:", 50, 240, 180, 30, { 255,255,255 });
+
 	// Control GUI
 	// Gravity Force
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
@@ -851,6 +853,15 @@ update_status ModulePhysics::PostUpdate()
 
 	else {
 		App->renderer->BlitText("No", 220, 30, 35, 30, { 255,0,0 });
+	}
+
+	if (!fade)
+	{
+		App->renderer->BlitText("Yes", 240, 240, 40, 30, { 0,255,0 });
+	}
+
+	else {
+		App->renderer->BlitText("No", 240, 240, 35, 30, { 255,0,0 });
 	}
 
 	if (App->player->laequis)
