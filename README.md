@@ -26,6 +26,9 @@ Player 2 (Right):
  - F2: Activate/Deactivate aerodynamicsb
  - F3: Activate/Deactivate drag
  - F4: Activate/Deactivate bouyancy
+ - F6: Show collisions
+ - F7: Hide collisions
+ - F8, F9, F10: Game runs at 30, 60 or 90 fps respectively
 
 ## Developers
 
