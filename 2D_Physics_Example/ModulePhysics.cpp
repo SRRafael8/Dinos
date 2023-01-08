@@ -113,12 +113,6 @@ bool ModulePhysics::Start()
 	ground4.w = 7.0f; // [m]
 	ground4.h = 15.0f; // [m]
 
-	//ground5 = Ground();
-	//ground5.x = 21.0f; // [m]
-	//ground5.y = 25.0f; // [m]
-	//ground5.w = 10.0f; // [m]
-	//ground5.h = 1.0f; // [m]
-
 	ground6 = Ground();
 	ground6.x = -1.0f; // [m]
 	ground6.y = 15.3f; // [m]
@@ -130,6 +124,12 @@ bool ModulePhysics::Start()
 	ground7.y = 15.3f; // [m]
 	ground7.w = 1.0f; // [m]
 	ground7.h = 6.0f; // [m]
+
+	groundlife = Ground();
+	groundlife.x = 24.2f; // [m]
+	groundlife.y = 35.3f; // [m]
+	groundlife.w = 1.0f; // [m]
+	groundlife.h = 1.0f; // [m]
 
 	//Loading bar
 	bar = Ground();
@@ -366,16 +366,7 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
-		//if (is_colliding_with_ground(ball, ground5))
-		//{
 
-		//	// Elastic bounce with ground
-		//	ball.vy = -ball.vy;
-
-		//	// FUYM non-elasticity
-		//	ball.vx *= ball.coef_friction;
-		//	ball.vy *= ball.coef_restitution;
-		//}
 	}
 
 	for (auto& bullet : bullets)
@@ -541,8 +532,24 @@ update_status ModulePhysics::PreUpdate()
 			bullet.x = ground7.x - ground7.w + bullet.radius + 0.5f;
 			bullet.vx = bullet.vx*-1;
 
-			// Elastic bounce with ground
-			
+			// FUYM non-elasticity
+			bullet.vx *= bullet.coef_friction;
+			bullet.vy *= bullet.coef_restitution;
+		}
+		if (is_colliding_with_ground(bullet, groundlife))
+		{
+			// TP ball to ground surface
+			if (bullet.x < groundlife.x + groundlife.w / 2) {
+				if (lifep1.w < 5) { lifep1.w = lifep1.w + 1; }
+				if (lifep1.w = 5) {continue;}
+			}
+			if (bullet.x > groundlife.x + groundlife.w / 2) {
+				if (lifep2.w < 5) { 
+					lifep2.w = lifep2.w + 1;
+					lifep2.x = lifep2.x + 1;
+				}
+				if (lifep2.w = 5) { continue; }
+			}
 
 			// FUYM non-elasticity
 			bullet.vx *= bullet.coef_friction;
@@ -743,8 +750,6 @@ update_status ModulePhysics::PreUpdate()
 			App->player->timerdeathp2--;
 		}
 
-		
-
 	}
 
 	// Continue game
@@ -863,6 +868,9 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 0; color_g = 255; color_b = 0;
 	App->renderer->DrawQuad(ground7.pixels(), color_r, color_g, color_b);
 
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(groundlife.pixels(), color_r, color_g, color_b);
+
 	// Draw water
 	color_r = 255; color_g = 139; color_b = 15;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
@@ -919,12 +927,6 @@ update_status ModulePhysics::PostUpdate()
 		{
 			color_r = 255; color_g = 0; color_b = 0;
 		}
-
-		// Draw ball
-		//if (App->player->laequis) {
-		//	App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
-		//}
-
 	}
 
 	for (auto& bullet : bullets)
@@ -1005,40 +1007,7 @@ update_status ModulePhysics::PostUpdate()
 
 
 	}
-	/*if(disparo == 1){
-
-		float r = METERS_TO_PIXELS(0.2f);
-		float fuerza = 0.4f;
-		direction -= -0.01f;
-		shootx += METERS_TO_PIXELS(fuerza * sin(0.5f));
-		shooty += -METERS_TO_PIXELS(fuerza * cos(direction));
-
-		App->player->timer--;
-
-
-	}
-	if (disparo2 == 0) {
-		int x = App->physics->players[0].x;
-		int y = App->physics->players[0].y - 700;
-		float r = 0.5f;
-		direction2 = 45;
-		shootx2 = METERS_TO_PIXELS(App->physics->players[1].x);
-		shooty2 = -METERS_TO_PIXELS(App->physics->players[1].y - 740);
-		App->renderer->DrawCircle(x, y, r, 255, 100, 100);
-	}
-	if (disparo2 == 1) {
-
-		float r = METERS_TO_PIXELS(0.2f);
-		float fuerza = -0.4f;
-		direction2 += 0.01f;
-		shootx2 += METERS_TO_PIXELS(fuerza * sin(direction2));
-		shooty2 += METERS_TO_PIXELS(fuerza * cos(direction2));
-
-		App->player->timer2--;
-
-		
-		App->renderer->DrawCircle(shootx2, shooty2, r, 255, 100, 100);
-	}*/
+	
 	if (App->player->timerdeathp1 <= 0) {
 		App->renderer->Blit(App->scene_intro->deathplayer1, 0, 0);
 		App->scene_intro->win = true;
