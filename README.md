@@ -15,6 +15,7 @@ Physics logic game based on 'Worms' game for the physics subject.
  - Player can change the angle and force of the shot.
  - During the other player's turn the player cannot move.
  - If you fall into the water you die automatically.
+ - Hitting the heart in the sky heals partially.
  - Game loop available.
 
 ## Controls
@@ -36,6 +37,8 @@ Have to spam the corresponding button
  - Left arrow: lower power
 
 ## Debug
+ - B: Activate/Deactivate shooting
+ - Z: Activate/Deactivate bullet bounce
  - F1: Activate/Deactivate gravity
  - F2: Activate/Deactivate aerodynamicsb
  - F3: Activate/Deactivate drag
