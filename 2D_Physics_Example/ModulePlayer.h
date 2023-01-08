@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModuleTextures.h"
 #include "p2Point.h"
 
 class PhysBody;
@@ -28,21 +29,8 @@ public:
 
 public:
 
-	Object ball;
-	Object flipper1;
-	Object flipper2;
-	Object spring;
-
-	PhysBody* flipper1_wheel;
-	PhysBody* flipper2_wheel;
-	PhysBody* spring_wheel;
-
-	Object flipper_up1;
-	Object flipper_up2;
-	PhysBody* flipper_up1_wheel;
-	PhysBody* flipper_up2_wheel;
-
-	PhysBody* sensor1;
+	//Stone bullet
+	SDL_Texture* stone;
 
 	bool laequis = true;
 

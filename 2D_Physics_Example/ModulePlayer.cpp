@@ -17,6 +17,10 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
+	
+	//Texturas
+	stone = App->textures->Load("Assets/Sprites/StoneR.png");
+
 	return true;
 }
 
@@ -80,6 +84,11 @@ update_status ModulePlayer::Update()
 			PhysBall bullet = PhysBall(8.0f, 1.0f, 0.2f, 0.4f, 0.2f, 10.0f, 0.9f, 0.8f, App->physics->players[0].x, App->physics->players[0].y + App->physics->players[0].radius + 0.3f, xup, yup, 255, 255, 0);
 			App->physics->bullets.emplace_back(bullet);
 
+			int x, y;
+			x = bullet.x;
+			y = bullet.y;
+			App->renderer->Blit(stone, x, y, NULL);
+
 			timerplayer1 = 1000;
 
 			App->physics->damage2 = true;
@@ -115,8 +124,8 @@ update_status ModulePlayer::Update()
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
 			App->physics->players[1].vx = 0.0f;
 		}
-		//Shoot
 
+		//Shoot
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			xup2++;
 			yup2++;
@@ -153,8 +162,6 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-
-
 		if (laequis) { laequis = false; }
 		else { laequis = true; }
 	}
