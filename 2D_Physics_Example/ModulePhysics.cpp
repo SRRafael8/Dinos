@@ -128,8 +128,8 @@ bool ModulePhysics::Start()
 	groundlife = Ground();
 	groundlife.x = 24.2f; // [m]
 	groundlife.y = 35.3f; // [m]
-	groundlife.w = 1.0f; // [m]
-	groundlife.h = 1.0f; // [m]
+	groundlife.w = 5.0f; // [m]
+	groundlife.h = 5.0f; // [m]
 
 	//Loading bar
 	bar = Ground();
@@ -539,11 +539,11 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_with_ground(bullet, groundlife))
 		{
 			// TP ball to ground surface
-			if (bullet.x < groundlife.x + groundlife.w / 2) {
+			if (bullet.vx > 0) {
 				if (lifep1.w < 5) { lifep1.w = lifep1.w + 1; }
 				if (lifep1.w = 5) {continue;}
 			}
-			if (bullet.x > groundlife.x + groundlife.w / 2) {
+			if (bullet.vx < 0) {
 				if (lifep2.w < 5) { 
 					lifep2.w = lifep2.w + 1;
 					lifep2.x = lifep2.x + 1;
