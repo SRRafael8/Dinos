@@ -126,10 +126,10 @@ bool ModulePhysics::Start()
 	ground7.h = 6.0f; // [m]
 
 	groundlife = Ground();
-	groundlife.x = 24.2f; // [m]
-	groundlife.y = 35.3f; // [m]
-	groundlife.w = 5.0f; // [m]
-	groundlife.h = 5.0f; // [m]
+	groundlife.x = 25.1f; // [m]
+	groundlife.y = 33.3f; // [m]
+	groundlife.w = 1.0f; // [m]
+	groundlife.h = 1.0f; // [m]
 
 	//Loading bar
 	bar = Ground();
@@ -252,6 +252,7 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
+
 	//Delta Time
 	frameTime.Start();
 
@@ -766,6 +767,9 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 	
+	//Draw Heart
+	App->renderer->Blit(App->scene_intro->heart, corazonx, corazony);
+
 	// Draw GUI Text
 	App->renderer->BlitText("Gravity", 50, 30, 80, 30, { 255,255,255 });
 	App->renderer->BlitText("Aerodynamic", 50, 60, 150, 30, { 255,255,255 });
@@ -878,6 +882,10 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 255; color_g = 75; color_b = 15;
 	App->renderer->DrawQuad(waterdeath.pixels(), color_r, color_g, color_b);
 
+
+	//Draw Setas
+	App->renderer->Blit(App->scene_intro->seta, 0, 0);
+
 	//Draw life
 	App->renderer->BlitText("Player 1", 16, 693, 70, 20, { 0,0,0 });
 	App->renderer->BlitText("Player 2", 934, 693, 70, 20, { 0,0,0 });
@@ -909,6 +917,7 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 54; color_g = 78; color_b = 255;
 	App->renderer->DrawQuad(barp2.pixels(), color_r, color_g, color_b);
+	
 
 	 //Draw all balls in the scenario
 	for (auto& ball : balls)
@@ -1017,6 +1026,8 @@ update_status ModulePhysics::PostUpdate()
 		App->scene_intro->win = true;
 	}
 
+
+
 	//Scenes Intro
 	if (inicio == true) {
 		App->renderer->Blit(App->scene_intro->scenelogo, 0, 0);
@@ -1040,6 +1051,13 @@ update_status ModulePhysics::PostUpdate()
 			App->scene_intro->introscenes = false;
 			timerintro = 100;
 		}
+	}
+
+	if (corazonx >= 800) {
+		corazondireccion = 1;
+	}
+	if (corazonx <= 190) {
+		corazondireccion = 0;
 	}
 
 	if (inicio == false) {

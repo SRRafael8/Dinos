@@ -24,9 +24,12 @@ bool ModuleSceneIntro::Start()
 	scenelogo = App->textures->Load("Assets/Scenes/OurLogo.png");
 
 	background = App->textures->Load("Assets/Scenes/Background.png");
+	seta = App->textures->Load("Assets/Scenes/Seta.png");
 
 	deathplayer1 = App->textures->Load("Assets/Scenes/Player2win.png");
 	deathplayer2 = App->textures->Load("Assets/Scenes/Player1win.png");
+
+	heart = App->textures->Load("Assets/Sprites/Heart.png");
 
 	return ret;
 }
@@ -42,10 +45,15 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	// Death Players
-	
+	if (App->physics->corazondireccion == 1) {
+		App->physics->corazonx--;
+		
+	}
+	if (App->physics->corazondireccion == 0) {		
+		App->physics->corazonx++;
+	}
 
-	
+	// Death Players
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT && win == true) {
 
 		SDL_DestroyTexture(deathplayer1);

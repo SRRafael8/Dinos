@@ -205,6 +205,10 @@ public:
 
 	int timerintro = 100;
 
+	int corazonx = 190;
+	int corazony = 67;
+	bool corazondireccion = 0;
+
 	bool damage = true;
 	bool damage2 = false;
 	// Misc

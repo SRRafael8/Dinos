@@ -79,9 +79,12 @@ public:
 	SDL_Texture* scenegame;
 
 	SDL_Texture* background;
+	SDL_Texture* seta;
 
 	SDL_Texture* deathplayer1;
 	SDL_Texture* deathplayer2;
+
+	SDL_Texture* heart;
 
 	bool win = false;
 	bool introscenes = false;
