@@ -1,4 +1,4 @@
-# WormsGame
+# Dinos
 
 ## Description
 Physics logic game based on 'Worms' game for the physics subject.
