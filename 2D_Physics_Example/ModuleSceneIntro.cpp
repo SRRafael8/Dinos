@@ -45,6 +45,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	//Heart Movement
 	if (App->physics->corazondireccion == 1) {
 		App->physics->corazonx--;
 		
