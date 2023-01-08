@@ -381,7 +381,14 @@ update_status ModulePhysics::PreUpdate()
 		}
 
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+		if (fade == true) {
+			fade = false;
+		}
+		else {
+			fade = true;
+		}
+	}
 	for (auto& bullet : bullets)
 	{
 		// Skip ball if physics not enabled
@@ -446,14 +453,7 @@ update_status ModulePhysics::PreUpdate()
 		integrator_velocity_verlet(bullet, maxFrameDuration / 1000);
 
 		// Solve collision between ball and ground
-		if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-			if (fade == true) {
-				fade = false;
-			}
-			else {
-				fade = true;
-			}
-		}
+		
 
 		if (is_colliding_with_ground(bullet, ground))
 		{
