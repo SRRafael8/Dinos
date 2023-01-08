@@ -547,7 +547,7 @@ update_status ModulePhysics::PreUpdate()
 			if (bullet.vx < 0) {
 				if (lifep2.w < 5) { 
 					lifep2.w = lifep2.w + 1;
-					lifep2.x = lifep2.x + 1;
+					lifep2.x = lifep2.x - 1;
 				}
 				if (lifep2.w = 5) { continue; }
 			}
